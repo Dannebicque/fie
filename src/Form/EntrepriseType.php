@@ -48,7 +48,7 @@ class EntrepriseType extends AbstractType
                 'label'    => 'Souhaite participer au pôt de cloture du forum',
                 'expanded' => true
             ])
-            ->add('remarques', TextareaType::class, ['label' => 'Remarques ou suggestions'])
+            ->add('remarques', TextareaType::class, ['label' => 'Remarques ou suggestions', 'required' => false])
             ->add('offres', CollectionType::class, [
                 'entry_type'    => OffreType::class,
                 'entry_options' => ['label' => 'Offre xx'],
