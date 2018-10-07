@@ -73,8 +73,14 @@ class Entreprise
      */
     private $diplomes;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $remarques;
+
     public function __construct()
     {
+        $this->datedepot = new \DateTime('now');
         $this->offres = new ArrayCollection();
         $this->representants = new ArrayCollection();
         $this->diplomes = new ArrayCollection();
@@ -272,6 +278,18 @@ class Entreprise
         if ($this->diplomes->contains($diplome)) {
             $this->diplomes->removeElement($diplome);
         }
+
+        return $this;
+    }
+
+    public function getRemarques(): ?string
+    {
+        return $this->remarques;
+    }
+
+    public function setRemarques(string $remarques): self
+    {
+        $this->remarques = $remarques;
 
         return $this;
     }

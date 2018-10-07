@@ -22,6 +22,14 @@ $('.selector-representant').collection({
   remove: '<a href="#" class="btn btn-warning">[ - Retire un representant de l\'entreprise]</a>',
 });
 
+$('.selector-offre').collection({
+  init_with_n_elements: 1,
+  add_at_the_end: true,
+  min: 0,
+  add: '<a href="#" class="btn btn-primary">[ + Ajouter une offre de stage]</a>',
+  remove: '<a href="#" class="btn btn-warning">[ - Retirer une offre de stage]</a>',
+});
+
 var $radios = $('input[name="jobdating"]');
 if($("#diplomes")) {
   $("#diplomes").parent().hide();

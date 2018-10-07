@@ -5,10 +5,29 @@
 {% block content %}
 <div class="row">
     <div class="col-sm-12">
-        <h1>Je suis une entreprise, je souhaite m'inscrire au Forum Iut Entreprise</h1>
+        <h3>Je suis une entreprise, je souhaite m'inscrire au Forum Iut Entreprise</h3>
+        <div class="alert alert-warning">
+            Ce formulaire est à compléter avant le xx Janvier 2019. En cas de difficulté vous pouvez contacter Fanny PASSEMARD : <a href="mailto:fanny.passemard@univ-reims.fr" target="_blank">fanny.passemard@univ-reims.fr</a> ou au 03 25 42 71 55.
+        </div>
         {% form_theme form
             'my-form.html.twig' %}
         {{ form_start(form) }}
+        {{ form_row(form.societe) }}
+        {{ form_row(form.adresse) }}
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(form.cp) }}</div>
+            <div class="col-sm-6">{{ form_row(form.ville) }}</div>
+        </div>
+        <div class="alert alert-info">
+            Si vous disposez, parmi vos employés, d'anciens étudiants de l'IUT, ils seraient les bienvenus pour exposer leur parcours et leur métier.
+        </div>
+        {{ form_row(form.representants) }}
+        {{ form_row(form.presentation_entreprise) }}
+        {{ form_row(form.jobdating) }}
+        {{ form_row(form.potcloture) }}
+        <div class="alert alert-success">
+            <strong>PS.</strong> Si vous ne souhaitez ou ne pouvez participer à cette manifestation, mais que vous avez une ou des offres, vous pouvez nous les transmettre. Nous les afficherons afin que les étudiants prennent contact avec vous.
+        </div>
         {{ form_widget(form) }}
         <button class="btn btn-success">Sauvegarde</button>
 

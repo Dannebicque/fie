@@ -2,8 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Diplome;
 use App\Entity\Offre;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,10 +16,11 @@ class OffreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre')
-            ->add('decription')
-            ->add('entreprise')
-            ->add('diplomes')
+            ->add('titre', TextType::class, ['label' => 'Intitulé de l\'offre de stage'])
+            ->add('decription', TextareaType::class, ['label' => 'Mission(s) Proposée(s)', 'attr' => ['rows' => 10]])
+            ->add('profilrecherche', TextareaType::class, ['label'=>'Profil du candidat recherché', 'attr' => ['rows' => 10]])
+            ->add('diplomes', EntityType::class, ['class' => Diplome::class, 'choice_label' => 'display', 'expanded' => true, 'multiple' => true, 'label' => 'Formation souhaitée'])
+
         ;
     }
 

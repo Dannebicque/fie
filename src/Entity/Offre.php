@@ -38,6 +38,11 @@ class Offre
      */
     private $diplomes;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $profilrecherche;
+
     public function __construct()
     {
         $this->diplomes = new ArrayCollection();
@@ -106,6 +111,18 @@ class Offre
         if ($this->diplomes->contains($diplome)) {
             $this->diplomes->removeElement($diplome);
         }
+
+        return $this;
+    }
+
+    public function getProfilrecherche(): ?string
+    {
+        return $this->profilrecherche;
+    }
+
+    public function setProfilrecherche(string $profilrecherche): self
+    {
+        $this->profilrecherche = $profilrecherche;
 
         return $this;
     }

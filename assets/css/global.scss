@@ -6,3 +6,19 @@
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
 
+fieldset {
+  border: 1px dotted lightgrey;
+  padding: 10px
+}
+
+#offres fieldset {
+  border: none;
+}
+
+#offres fieldset {
+  border: none;
+}
+
+#offres fieldset legend {
+  font-weight: bold;
+}
