@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Representant{% endblock %}
+
+{% block body %}
+    <h1>Edit Representant</h1>
+
+    {{ include('representant/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('representant_index') }}">back to list</a>
+
+    {{ include('representant/_delete_form.html.twig') }}
+{% endblock %}

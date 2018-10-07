@@ -1,0 +1,11 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+<ul>
+    <li><a href="{{ path('diplome_index') }}">Gestion des diplômes</a></li>
+    <li><a href="{{ path('offre_index') }}">Gestion des offres</a></li>
+    <li><a href="{{ path('entreprise_index') }}">Gestion des entreprises</a></li>
+</ul>
+{% endblock %}

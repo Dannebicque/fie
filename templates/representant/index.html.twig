@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Representant index{% endblock %}
+
+{% block body %}
+    <h1>Representant index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th>Fonction</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for representant in representants %}
+            <tr>
+                <td>{{ representant.id }}</td>
+                <td>{{ representant.nom }}</td>
+                <td>{{ representant.prenom }}</td>
+                <td>{{ representant.email }}</td>
+                <td>{{ representant.telephone }}</td>
+                <td>{{ representant.fonction }}</td>
+                <td>
+                    <a href="{{ path('representant_show', {'id': representant.id}) }}">show</a>
+                    <a href="{{ path('representant_edit', {'id': representant.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('representant_new') }}">Create new</a>
+{% endblock %}

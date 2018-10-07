@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Representant{% endblock %}
+
+{% block body %}
+    <h1>Create new Representant</h1>
+
+    {{ include('representant/_form.html.twig') }}
+
+    <a href="{{ path('representant_index') }}">back to list</a>
+{% endblock %}

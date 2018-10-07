@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Professionnel{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <h1>Je suis une entreprise, je souhaite m'inscrire au Forum Iut Entreprise</h1>
+        {% form_theme form
+            'my-form.html.twig' %}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-success">Sauvegarde</button>
+
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
