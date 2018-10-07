@@ -1,39 +1,42 @@
 {% extends 'base-admin.html.twig' %}
 
-{% block title %}Entreprise index{% endblock %}
+{% block title %}Liste des entreprises présentes{% endblock %}
 
 {% block body %}
-    <h1>Entreprise index</h1>
+    <h1>Liste des entreprises présentes</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Mail</th>
-                <th>Telephone</th>
+                <th>Société</th>
+                <th>Représentants</th>
+                <th>Stand</th>
+                <th>Jobdating</th>
+                <th>Pot cloture</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for entreprise in entreprises %}
             <tr>
-                <td>{{ entreprise.id }}</td>
-                <td>{{ entreprise.nom }}</td>
-                <td>{{ entreprise.mail }}</td>
-                <td>{{ entreprise.telephone }}</td>
+                <td>{{ entreprise.societe }}</td>
+                <td>{% for representant in entreprise.representants %}{{ representant.display }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                <td>{{ entreprise.presentationEntreprise ? 'Oui' : 'Non' }}</td>
+                <td>{{ entreprise.jobdating ? 'Oui' : 'Non' }}</td>
+                <td>{{ entreprise.potcloture ? 'Oui' : 'Non' }}</td>
                 <td>
-                    <a href="{{ path('entreprise_show', {'id': entreprise.id}) }}">show</a>
-                    <a href="{{ path('entreprise_edit', {'id': entreprise.id}) }}">edit</a>
+                    <a href="{{ path('entreprise_show', {'id': entreprise.id}) }}" class="btn btn-info" title="Détails"><i class="fas fa-eye"></i></a>
+                    <a href="{{ path('entreprise_edit', {'id': entreprise.id}) }}" class="btn btn-warning" title="Modifier"><i class="fas fa-pencil-alt"></i></a>
+                    {{ include('entreprise/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('entreprise_new') }}">Create new</a>
+    <a href="{{ path('entreprise_new') }}" class="btn btn-success"><i class="fas fa-plus-circle"></i> Ajouter une entreprise</a>
 {% endblock %}

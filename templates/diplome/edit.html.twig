@@ -3,11 +3,9 @@
 {% block title %}Edit Diplome{% endblock %}
 
 {% block body %}
-    <h1>Edit Diplome</h1>
+    <h1>Modifier un diplôme</h1>
 
-    {{ include('common/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('common/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('diplome_index') }}">back to list</a>
-
-    {{ include('diplome/_delete_form.html.twig') }}
+    <a href="{{ path('diplome_index') }}">Annuler et retourner à la liste</a>
 {% endblock %}

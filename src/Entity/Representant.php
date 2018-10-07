@@ -122,4 +122,8 @@ class Representant
 
         return $this;
     }
+
+    public function getDisplay() {
+        return ucfirst($this->getPrenom()).' '.mb_strtoupper($this->getNom());
+    }
 }

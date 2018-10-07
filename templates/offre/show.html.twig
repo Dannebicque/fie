@@ -22,9 +22,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('offre_index') }}">back to list</a>
+    <a href="{{ path('offre_index') }}">Retourner à la liste</a>
 
-    <a href="{{ path('offre_edit', {'id': offre.id}) }}">edit</a>
-
-    {{ include('offre/_delete_form.html.twig') }}
 {% endblock %}

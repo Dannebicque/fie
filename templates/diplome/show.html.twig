@@ -3,7 +3,7 @@
 {% block title %}Diplome{% endblock %}
 
 {% block body %}
-    <h1>Diplome</h1>
+    <h1>Détails d'un diplôme</h1>
 
     <table class="table">
         <tbody>
@@ -16,15 +16,12 @@
                 <td>{{ diplome.sigle }}</td>
             </tr>
             <tr>
-                <th>Libelle</th>
+                <th>Libellé</th>
                 <td>{{ diplome.libelle }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('diplome_index') }}">back to list</a>
+    <a href="{{ path('diplome_index') }}">Retourner à la liste</a>
 
-    <a href="{{ path('diplome_edit', {'id': diplome.id}) }}">edit</a>
-
-    {{ include('diplome/_delete_form.html.twig') }}
 {% endblock %}

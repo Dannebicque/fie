@@ -3,26 +3,27 @@
 {% block title %}Diplome index{% endblock %}
 
 {% block body %}
-    <h1>Diplome index</h1>
+    <h1>Liste des diplômes disposant de périodes de stage</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Sigle</th>
                 <th>Libelle</th>
+                <th>Nb offres déposées</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for diplome in diplomes %}
             <tr>
-                <td>{{ diplome.id }}</td>
                 <td>{{ diplome.sigle }}</td>
                 <td>{{ diplome.libelle }}</td>
+                <td>{{ diplome.offres|length }}</td>
                 <td>
-                    <a href="{{ path('diplome_show', {'id': diplome.id}) }}">show</a>
-                    <a href="{{ path('diplome_edit', {'id': diplome.id}) }}">edit</a>
+                    <a href="{{ path('diplome_show', {'id': diplome.id}) }}" class="btn btn-info" title="Détails"><i class="fas fa-eye"></i></a>
+                    <a href="{{ path('diplome_edit', {'id': diplome.id}) }}" class="btn btn-warning" title="Modifier"><i class="fas fa-pencil-alt"></i></a>
+                    {{ include('diplome/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

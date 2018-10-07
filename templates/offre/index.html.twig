@@ -3,26 +3,27 @@
 {% block title %}Offre index{% endblock %}
 
 {% block body %}
-    <h1>Offre index</h1>
+    <h1>Liste des offres déposées</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Titre</th>
-                <th>Decription</th>
+                <th>Entreprise</th>
+                <th>Diplôme</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for offre in offres %}
             <tr>
-                <td>{{ offre.id }}</td>
                 <td>{{ offre.titre }}</td>
-                <td>{{ offre.decription }}</td>
+                <td>{{ offre.entreprise ? offre.entreprise.societe : 'Non défini' }}</td>
+                <td>{% for diplome in offre.diplomes %}{{ diplome.sigle }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
                 <td>
-                    <a href="{{ path('offre_show', {'id': offre.id}) }}">show</a>
-                    <a href="{{ path('offre_edit', {'id': offre.id}) }}">edit</a>
+                    <a href="{{ path('offre_show', {'id': offre.id}) }}" class="btn btn-info" title="Détails"><i class="fas fa-eye"></i></a>
+                    <a href="{{ path('offre_edit', {'id': offre.id}) }}" class="btn btn-warning" title="Modifier"><i class="fas fa-pencil-alt"></i></a>
+                    {{ include('offre/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -33,5 +34,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('offre_new') }}">Create new</a>
+    <a href="{{ path('offre_new') }}" class="btn btn-success"><i class="fas fa-plus-circle"></i> Ajouter une offre</a>
 {% endblock %}
