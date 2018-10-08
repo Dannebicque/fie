@@ -9,6 +9,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+
+// Include PhpSpreadsheet required namespaces
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
  * @Route("/administration/offre")
@@ -21,6 +26,53 @@ class OffreController extends AbstractController
     public function index(OffreRepository $offreRepository): Response
     {
         return $this->render('offre/index.html.twig', ['offres' => $offreRepository->findAll()]);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @Route("/export", name="offre_export", methods="GET")
+     */
+    public function export(OffreRepository $offreRepository) {
+        $spreadsheet = new Spreadsheet();
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'Titre');
+        $sheet->setCellValue('B1', 'Entreprise');
+        $sheet->setCellValue('C1', 'Diplôme');
+
+        $sheet->setTitle("Liste des offres");
+
+        $offres = $offreRepository->findAll();
+
+        $row = 2;
+        foreach ($offres as $offre) {
+            $sheet->setCellValueByColumnAndRow(1, $row, $offre->getTitre());
+            if ($offre->getEntreprise() !== null)
+                $sheet->setCellValueByColumnAndRow(2, $row, $offre->getEntreprise()->getSociete());
+            $col = 3;
+            foreach ($offre->getDiplomes() as $diplome) {
+                $sheet->setCellValueByColumnAndRow($col, $row, $diplome->getSigle());
+                $col++;
+            }
+            $row++;
+        }
+
+        // Create your Office 2007 Excel (XLSX Format)
+        $writer = new Xlsx($spreadsheet);
+        $datejour = new \DateTime('now');
+        // Create a Temporary file in the system
+        $fileName = 'liste_offre-'.$datejour->format('d-m-Y-H-i').'.xlsx';
+        $temp_file = tempnam(sys_get_temp_dir(), $fileName);
+
+        // Create the excel file in the tmp directory of the system
+        $writer->save($temp_file);
+
+        // Return the excel file as an attachment
+        return $this->file($temp_file, $fileName, ResponseHeaderBag::DISPOSITION_INLINE);
+
     }
 
     /**

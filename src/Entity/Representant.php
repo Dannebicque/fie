@@ -46,6 +46,11 @@ class Representant
      */
     private $entreprise;
 
+    /**
+     * @ORM\Column(type="string", length=3)
+     */
+    private $civilite;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -125,5 +130,17 @@ class Representant
 
     public function getDisplay() {
         return ucfirst($this->getPrenom()).' '.mb_strtoupper($this->getNom());
+    }
+
+    public function getCivilite(): ?string
+    {
+        return $this->civilite;
+    }
+
+    public function setCivilite(string $civilite): self
+    {
+        $this->civilite = $civilite;
+
+        return $this;
     }
 }

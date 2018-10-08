@@ -6,6 +6,7 @@ use App\Entity\Diplome;
 use App\Entity\Entreprise;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -29,24 +30,22 @@ class EntrepriseType extends AbstractType
                 'prototype'     => true,
                 'allow_delete'  => true,
                 'by_reference'  => false,
+                'label' => 'Entreprise representée par : ',
                 'attr'          => array(
                     'class' => 'selector-representant',
                 ),
             ])
-            ->add('presentation_entreprise', ChoiceType::class, [
-                'choices'  => ['Oui' => true, 'Non' => false],
+            ->add('presentation_entreprise', CheckboxType::class, [
                 'label'    => 'Souhaite présenter l\'entreprise sur un stand',
-                'expanded' => true
+                'required' => false
             ])
-            ->add('jobdating', ChoiceType::class, [
-                'choices'  => ['Oui' => true, 'Non' => false],
+            ->add('jobdating', CheckboxType::class, [
                 'label'    => 'Souhaite participer au Job Dating avec des offres de stage',
-                'expanded' => true
+                'required' => false
             ])
-            ->add('potcloture', ChoiceType::class, [
-                'choices'  => ['Oui' => true, 'Non' => false],
+            ->add('potcloture', CheckboxType::class, [
                 'label'    => 'Souhaite participer au pôt de cloture du forum',
-                'expanded' => true
+                'required' => false
             ])
             ->add('remarques', TextareaType::class, ['label' => 'Remarques ou suggestions', 'required' => false])
             ->add('offres', CollectionType::class, [

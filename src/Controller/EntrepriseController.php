@@ -9,6 +9,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+
+// Include PhpSpreadsheet required namespaces
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
  * @Route("/administration/entreprise")
@@ -21,6 +26,49 @@ class EntrepriseController extends AbstractController
     public function index(EntrepriseRepository $entrepriseRepository): Response
     {
         return $this->render('entreprise/index.html.twig', ['entreprises' => $entrepriseRepository->findAll()]);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @Route("/export", name="entreprise_export", methods="GET")
+     */
+    public function export(EntrepriseRepository $entrepriseRepository) {
+        $spreadsheet = new Spreadsheet();
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'Entreprise');
+        $sheet->setCellValue('B1', 'Adresse');
+        $sheet->setCellValue('C1', 'CP');
+        $sheet->setCellValue('D1', 'Ville');
+        $sheet->setTitle("Liste des Entreprises");
+
+        $entreprises = $entrepriseRepository->findAll();
+
+        $row = 2;
+        foreach ($entreprises as $entreprise) {
+            $sheet->setCellValueByColumnAndRow(1, $row, $entreprise->getSociete());
+            $sheet->setCellValueByColumnAndRow(2, $row, $entreprise->getAdresse());
+            $sheet->setCellValueByColumnAndRow(3, $row, $entreprise->getCp());
+            $sheet->setCellValueByColumnAndRow(4, $row, $entreprise->getVille());
+            $row++;
+        }
+
+        // Create your Office 2007 Excel (XLSX Format)
+        $writer = new Xlsx($spreadsheet);
+        $datejour = new \DateTime('now');
+        // Create a Temporary file in the system
+        $fileName = 'liste_entreprise-'.$datejour->format('d-m-Y-H-i').'.xlsx';
+        $temp_file = tempnam(sys_get_temp_dir(), $fileName);
+
+        // Create the excel file in the tmp directory of the system
+        $writer->save($temp_file);
+
+        // Return the excel file as an attachment
+        return $this->file($temp_file, $fileName, ResponseHeaderBag::DISPOSITION_INLINE);
+
     }
 
     /**
@@ -87,4 +135,6 @@ class EntrepriseController extends AbstractController
 
         return $this->redirectToRoute('entreprise_index');
     }
+
+
 }

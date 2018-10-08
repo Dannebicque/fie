@@ -19,7 +19,7 @@ class OffreType extends AbstractType
             ->add('titre', TextType::class, ['label' => 'Intitulé de l\'offre de stage'])
             ->add('decription', TextareaType::class, ['label' => 'Mission(s) Proposée(s)', 'attr' => ['rows' => 10]])
             ->add('profilrecherche', TextareaType::class, ['label'=>'Profil du candidat recherché', 'attr' => ['rows' => 10]])
-            ->add('diplomes', EntityType::class, ['class' => Diplome::class, 'choice_label' => 'display', 'expanded' => true, 'multiple' => true, 'label' => 'Formation souhaitée'])
+            ->add('diplomes', EntityType::class, ['class' => Diplome::class, 'choice_label' => 'display', 'expanded' => true, 'multiple' => true, 'label' => 'Formation(s) souhaitée(s)'])
 
         ;
     }
