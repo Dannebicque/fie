@@ -1,11 +1,10 @@
 {% extends 'base-admin.html.twig' %}
 
-{% block title %}New Representant{% endblock %}
+{% block title %}Ajouter un représentant{% endblock %}
 
 {% block body %}
-    <h1>Create new Representant</h1>
+    <h1>Ajouter un représentant</h1>
 
     {{ include('common/_form.html.twig') }}
-
     <a href="{{ path('representant_index') }}">Annuler et retourner à la liste</a>
 {% endblock %}

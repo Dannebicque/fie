@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Professionnel{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Confirmation de votre participation</h2>
+        <p>Nous vous remercions de votre participation au Forum IUT Entreprise</p>
+        <div class="alert alert-info">
+            Si vous souhaitez pouvoir gérer votre inscription, modifier vos offres, ou accéder aux candidatures en ligne le jour du forum vous pouvez créer votre compte en complétant les informations ci-dessous :
+            <form class="form" method="post" action="{{ path('professionnel_creation_compte', {entreprise:entreprise
+                .id}) }}">
+                <div class="form-group">
+                    <label for="email">Email de connexion</label>
+                    <input type="text" name="email" id="email" value="{{ entreprise.representants[0].email }}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="pass1">Mot de passe</label>
+                    <input type="password" name="pass1" id="pass1" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="pass2">Confirmer le mot de passe</label>
+                    <input type="password" name="pass2" id="pass2" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">Créer mon compte</button>
+            </form>
+        </div>
+
+        <p>Résumé des informations communiquées</p>
+        <h3>Votre entreprise</h3>
+        <p>{{ entreprise.societe }}, située {{ entreprise.adresse }}, {{ entreprise.cp }} {{ entreprise.ville }}</p>
+        <p>Sera représentée par :</p>
+        <ul>
+            {% for representant in entreprise.representants %}
+            <li>{{ representant.prenom }} {{ representant.nom }}, {{ representant.fonction }}, {{ representant.email }}, {{ representant.telephone }}</li>
+            {% endfor %}
+        </ul>
+        <p>Vous participerez à : </p>
+        <ul>
+            <li>Présentation de votre entreprise sur un stand : {{ entreprise.presentationEntreprise ? 'Oui' : 'Non' }}</li>
+            <li>Participation au job dating : {{ entreprise.jobdating ? 'Oui' : 'Non' }}</li>
+            <li>Participation au pôt de cloture : {{ entreprise.potcloture ? 'Oui' : 'Non' }}</li>
+        </ul>
+        {% if entreprise.offres|length >0 %}
+        <h3>Les offres proposées</h3>
+            {% for offre in entreprise.offres %}
+            <ul>
+                <li>Titre : {{ offre.titre }}</li>
+                <li>Description : {{ offre.decription }}</li>
+                <li>Profil Recherché : {{ offre.profilrecherche }}</li>
+                <li>Diplôme(s) recherché(s) :  {% for diplome in offre.diplomes %}{{ diplome.libelle }}{% if not loop.last %}, {% endif %}{% endfor %}</li>
+            </ul>
+            {% endfor %}
+        {% else %}
+            Vous ne proposez pas d'offres
+        {% endif %}
+        <div class="alert alert-success">
+            Un email de confirmation a été envoyé avec ces informations aux personnes qui représenteront l'entreprise le jour du forum.
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
