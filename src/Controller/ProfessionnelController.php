@@ -11,10 +11,15 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class ProfessionnelController
+ * @package App\Controller
+ * @Route("/professionnel")
+ */
 class ProfessionnelController extends AbstractController
 {
     /**
-     * @Route("/professionnel", name="professionnel_index")
+     * @Route("/", name="professionnel_index")
      */
     public function index(Request $request, EventDispatcherInterface $eventDispatcher)
     {
@@ -71,6 +76,15 @@ class ProfessionnelController extends AbstractController
 
         return $this->render('professionnel/create_compte.html.twig', [
             'entreprise' => $entreprise
+        ]);
+    }
+
+    /**
+     * @Route("/gestion", name="professionnel_gestion")
+     */
+    public function gestion() {
+        return $this->render('professionnel/gestion.html.twig', [
+            'representant' => $this->getUser()
         ]);
     }
 }
