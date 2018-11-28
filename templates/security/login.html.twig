@@ -3,30 +3,28 @@
 {% block header %}Connexion{% endblock %}
 
 {% block content %}
-    {% if message %}
-        <div class="alert alert-danger">
-            {{ message }}
-        </div>
-    {% endif %}
     {% if error %}
         <div class="alert alert-danger">
             {{ error.messageKey }}
         </div>
     {% endif %}
 
-    <form class="form-signin" action="{{ path('security_login') }}" method="post">
+    <form class="form" action="{{ path('security_login') }}" method="post">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
 
-        <img class="mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
 
-        <label for="username" class="sr-only">Email (entreprise) / Login (étudiant)</label>
-        <input type="email" id="username" name="_username" value="{{ last_username }}" class="form-control" placeholder="Email address" required autofocus>
-        <label for="_password" class="sr-only">Password</label>
-        <input type="password" id="_password" name="_password" class="form-control" placeholder="Password" required>
-
-                <a class="text-muted hover-primary fs-13"
-                   href="{{ path('security_password_lost') }}">Mot de passe perdu</a>
+        <div class="form-group">
+            <label for="username">Email (entreprise) / Login (étudiant)</label>
+            <input type="email" id="username" name="_username" value="{{ last_username }}" class="form-control"
+                   placeholder="Email (entreprise) / Login (étudiant)" required autofocus>
+        </div>
+        <div class="form-group">
+            <label for="_password">Password</label>
+            <input type="password" id="_password" name="_password" class="form-control" placeholder="Password" required>
+        </div>
+        <a class="text-muted hover-primary fs-13"
+           href="{{ path('security_password_lost') }}">Mot de passe perdu</a>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
     </form>

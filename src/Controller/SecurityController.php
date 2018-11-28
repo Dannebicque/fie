@@ -36,15 +36,14 @@ class SecurityController extends AbstractController
 
 
     /**
-     * @Route("/connexion/{message}", name="security_login")
+     * @Route("/connexion", name="security_login")
      * @param AuthenticationUtils $helper
      *
      * @return Response
      */
-    public function login(AuthenticationUtils $helper, $message = ''): Response
+    public function login(AuthenticationUtils $helper): Response
     {
         return $this->render('security/login.html.twig', [
-            'message' => $message,
             // dernier username saisi (si il y en a un)
             'last_username' => $helper->getLastUsername(),
             // La derniere erreur de connexion (si il y en a une)

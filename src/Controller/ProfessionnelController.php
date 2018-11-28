@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Entreprise;
 use App\Events;
 use App\Form\EntrepriseType;
+use App\Repository\RepresentantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class ProfessionnelController
@@ -64,25 +66,35 @@ class ProfessionnelController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function createCompte(EventDispatcherInterface $eventDispatcher, Request $request, Entreprise $entreprise)
+    public function createCompte(EventDispatcherInterface $eventDispatcher, UserPasswordEncoderInterface $passwordEncoder, Request $request, RepresentantRepository $representantRepository, Entreprise $entreprise)
     {
-        //création du compte,
-        //cryptage du mot de passe.
-        //confirmation par mail avec lien
+        $email = $request->request->get('email');
+        $responsable = $representantRepository->findOneBy(['email' => $email, 'entreprise' => $entreprise->getId()]);
+        if ($responsable !== null) {
+            //création du compte
+            $pass = $request->request->get('pass1');
+            $password = $passwordEncoder->encodePassword($responsable, $pass);
+            $responsable->setPassword($password);
+            $responsable->setRoles(['ROLE_ENTREPRISE']);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($responsable);
+            $em->flush();
 
-        //envoi d'un mail de confirmation
-        $event = new GenericEvent($entreprise);
-        $eventDispatcher->dispatch(Events::CONFIRMATION_CREATION_COMPTE, $event);
+            //envoi d'un mail de confirmation
+            $event = new GenericEvent($responsable);
+            $eventDispatcher->dispatch(Events::CONFIRMATION_CREATION_COMPTE, $event);
 
-        return $this->render('professionnel/create_compte.html.twig', [
-            'entreprise' => $entreprise
-        ]);
+            return $this->render('professionnel/create_compte.html.twig', [
+                'entreprise' => $entreprise
+            ]);
+        }
     }
 
     /**
      * @Route("/gestion", name="professionnel_gestion")
      */
     public function gestion() {
+
         return $this->render('professionnel/gestion.html.twig', [
             'representant' => $this->getUser()
         ]);

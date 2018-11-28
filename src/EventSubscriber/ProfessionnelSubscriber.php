@@ -53,20 +53,17 @@ class ProfessionnelSubscriber implements EventSubscriberInterface
 
     public function onConfirmationCreationCompte(GenericEvent $event)
     {
-        /** @var Entreprise $entreprise */
-        $entreprise = $event->getSubject();
+        $representant = $event->getSubject();
         $mail = new \Swift_Message();
-        //todo: juste le premier représentant?
         $mails = array();
-        foreach ($entreprise->getRepresentants() as $representant) {
-            $mails[] = $representant->getEmail();
-        }
+        $mails[] = $representant->getEmail();
+
 
         $mail
             ->setFrom(Events::MAIL_EXPEDITEUR)
             ->setTo($mails)
             ->setSubject('Confirmation d\'inscription au FORULM IUT Entreprise')
-            ->setBody($this->templating->render('mails/confirmation.html.twig', ['entreprise' => $entreprise]))
+            ->setBody($this->templating->render('mails/confirmation.html.twig', ['representant' => $representant]))
             ->setReplyTo(Events::MAIL_EXPEDITEUR);
 
         $this->mailer->send($mail);

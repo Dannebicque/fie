@@ -1,6 +1,6 @@
 security:
     encoders:
-        App\Entity\Utilisateur: bcrypt
+        App\Entity\Representant: bcrypt
 
     role_hierarchy:
     #- ROLE_SUPER_ADMIN:ROLE_PERMANENT
@@ -54,4 +54,4 @@ security:
     - { path: '^/connexion', roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: '^/professionnel/gestion', roles: ROLE_ENTREPRISE }
     - { path: '^/etudiant/gestion', roles: ROLE_ETUDIANT }
-    - { path: '^/admin', roles: ROLE_ADMIN }
+    #- { path: '^/administration', roles: ROLE_ADMIN }
