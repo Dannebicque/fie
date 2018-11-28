@@ -140,8 +140,9 @@ class Representant implements UserInterface
         return $this;
     }
 
-    public function getDisplay() {
-        return ucfirst($this->getPrenom()).' '.mb_strtoupper($this->getNom());
+    public function getDisplay()
+    {
+        return ucfirst($this->getPrenom()) . ' ' . mb_strtoupper($this->getNom());
     }
 
     public function getCivilite(): ?string
@@ -163,7 +164,7 @@ class Representant implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -180,7 +181,7 @@ class Representant implements UserInterface
 
     public function setRoles(array $roles): self
     {
-        if (count($roles) == 0) {
+        if (count($roles) == 0 || $roles == null) {
             $roles = ['ROLE_ENTREPRISE'];
         }
         $this->roles = json_encode($roles);
@@ -193,7 +194,7 @@ class Representant implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
