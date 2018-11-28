@@ -173,13 +173,16 @@ class Representant implements UserInterface
     {
         $roles = json_decode($this->roles);
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_ENTREPRISE';
 
         return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
     {
+        if (count($roles) == 0) {
+            $roles = ['ROLE_ENTREPRISE'];
+        }
         $this->roles = json_encode($roles);
 
         return $this;
