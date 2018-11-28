@@ -53,7 +53,7 @@ class Representant implements UserInterface
     private $civilite;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $roles;
 
@@ -62,6 +62,10 @@ class Representant implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    public function __construct()
+    {
+    }
 
     public function getId(): ?int
     {
@@ -181,9 +185,6 @@ class Representant implements UserInterface
 
     public function setRoles(array $roles): self
     {
-        if (count($roles) == 0 || $roles == null) {
-            $roles = ['ROLE_ENTREPRISE'];
-        }
         $this->roles = json_encode($roles);
 
         return $this;
