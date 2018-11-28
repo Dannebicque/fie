@@ -1,0 +1,37 @@
+{% set representant = entreprise.representants[0] %}
+Bonjour {{ representant.civilite }} {{ representant.nom|capitalize }},
+
+Merci pour votre participation au "Forum IUT Entreprise" de l'IUT de Troyes.
+
+Voici un résumé des informations transmises :
+
+Votre entreprise :
+
+{{ entreprise.societe }}, {{ entreprise.adresse }}.
+
+{% if entreprise.jobdating  %}
+Vous participerez au jobdating du 7 février 2019 de 14h00 à 17h30.
+{% endif %}
+{% if entreprise.potcloture  %}
+    Vous participerez au pot de clôture du 7 février 2019 à partir de 17h30.
+{% endif %}
+{% if entreprise.presentationEntreprise  %}
+    Vous aurez un stand pour présenter votre entreprise.
+{% endif %}
+
+{% for offre in entreprise.offres %}
+Offre N°{{ loop.index }} :
+
+{{ offre.titre}}.
+{{ offre.decription }}
+Diplôme(s) visé(s) : {% for diplome in offre.diplomes %}{{ diplome.sigle }}{% if not loop.last %},{% endif %} {% endfor
+%}
+    ----
+{% endfor %}
+
+En cas de besoin vous pouvez contacter Fanny Passemard (fanny.passemard@univ-reims.fr) ou  03 25 42 71 55.
+
+{# en fonction du choix #}
+Dans l'attente de vous accueillir lors de notre forum,
+
+Bien cordialement,

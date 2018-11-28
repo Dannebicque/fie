@@ -63,7 +63,7 @@ class ProfessionnelSubscriber implements EventSubscriberInterface
             ->setFrom(Events::MAIL_EXPEDITEUR)
             ->setTo($mails)
             ->setSubject('Confirmation d\'inscription au FORULM IUT Entreprise')
-            ->setBody($this->templating->render('mails/confirmation.html.twig', ['representant' => $representant]))
+            ->setBody($this->templating->render('mails/create-compte.html.twig', ['representant' => $representant]))
             ->setReplyTo(Events::MAIL_EXPEDITEUR);
 
         $this->mailer->send($mail);
