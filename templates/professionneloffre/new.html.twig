@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Proposer une offre de stage{% endblock %}
+
+{% block content %}
+    <h1>Proposer une offre de stage</h1>
+
+    {{ include('common/_form.html.twig') }}
+
+    <a href="{{ path('professionnel_gestion') }}">Annuler et revenir à votre compte</a>
+{% endblock %}

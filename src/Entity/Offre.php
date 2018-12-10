@@ -43,9 +43,15 @@ class Offre
      */
     private $profilrecherche;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Candidature", mappedBy="offre")
+     */
+    private $candidatures;
+
     public function __construct()
     {
         $this->diplomes = new ArrayCollection();
+        $this->candidatures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -123,6 +129,37 @@ class Offre
     public function setProfilrecherche(string $profilrecherche): self
     {
         $this->profilrecherche = $profilrecherche;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Candidature[]
+     */
+    public function getCandidatures(): Collection
+    {
+        return $this->cv;
+    }
+
+    public function addCandidature(Candidature $candidature): self
+    {
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures[] = $candidature;
+            $candidature->setOffre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidature(Candidature $candidature): self
+    {
+        if ($this->candidatures->contains($candidature)) {
+            $this->candidatures->removeElement($candidature);
+            // set the owning side to null (unless already changed)
+            if ($candidature->getOffre() === $this) {
+                $candidature->setOffre(null);
+            }
+        }
 
         return $this;
     }

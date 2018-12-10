@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Offre{% endblock %}
+
+{% block content %}
+    <h1>Offre</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Titre</th>
+                <td>{{ offre.titre }}</td>
+            </tr>
+            <tr>
+                <th>Decription</th>
+                <td><p>{{ offre.decription }}</p></td>
+            </tr>
+
+            <tr>
+                <th>Diplômes visés</th>
+                <td>{% for diplome in offre.diplomes %}{{ diplome.sigle }}{% if not loop.last %},{% endif %} {% endfor
+                    %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('professionnel_gestion') }}">Annuler et revenir à votre compte</a>
+
+
+{% endblock %}

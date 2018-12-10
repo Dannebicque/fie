@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RepresentantRepository")
  */
-class Representant
+class Representant extends User implements \Serializable
 {
     /**
      * @ORM\Id()
@@ -15,21 +15,6 @@ class Representant
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $nom;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $prenom;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
@@ -51,45 +36,15 @@ class Representant
      */
     private $civilite;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setRoles(['ROLE_ENTREPRISE']);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
     }
 
     public function getTelephone(): ?string
@@ -128,8 +83,9 @@ class Representant
         return $this;
     }
 
-    public function getDisplay() {
-        return ucfirst($this->getPrenom()).' '.mb_strtoupper($this->getNom());
+    public function getDisplay()
+    {
+        return ucfirst($this->getPrenom()) . ' ' . mb_strtoupper($this->getNom());
     }
 
     public function getCivilite(): ?string
@@ -142,5 +98,42 @@ class Representant
         $this->civilite = $civilite;
 
         return $this;
+    }
+
+    /**
+     * String representation of object
+     * @link  http://php.net/manual/en/serializable.serialize.php
+     * @return string the string representation of the object or null
+     * @since 5.1.0
+     */
+    public function serialize(): string
+    {
+        // Ajouté pour le problème de connexion avec le usernametoken
+        return serialize(array(
+            $this->id,
+            $this->password,
+            $this->email
+        ));
+    }
+
+    /**
+     * Constructs the object
+     * @link  http://php.net/manual/en/serializable.unserialize.php
+     *
+     * @param string $serialized <p>
+     *                           The string representation of the object.
+     *                           </p>
+     *
+     * @return void
+     * @since 5.1.0
+     */
+    public function unserialize($serialized): void
+    {
+        // Ajouté pour le problème de connexion avec le usernametoken
+        [
+            $this->id,
+            $this->password,
+            $this->email
+        ] = unserialize($serialized, ['allowed_classes' => false]);
     }
 }

@@ -38,10 +38,16 @@ class Diplome
      */
     private $entreprises;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Etudiant", mappedBy="diplome")
+     */
+    private $etudiants;
+
     public function __construct()
     {
         $this->offres = new ArrayCollection();
         $this->entreprises = new ArrayCollection();
+        $this->etudiants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -131,5 +137,36 @@ class Diplome
 
     public function getDisplay() {
         return $this->getLibelle().' ('.$this->getSigle().')';
+    }
+
+    /**
+     * @return Collection|Etudiant[]
+     */
+    public function getEtudiants(): Collection
+    {
+        return $this->etudiants;
+    }
+
+    public function addEtudiant(Etudiant $nom): self
+    {
+        if (!$this->etudiants->contains($nom)) {
+            $this->etudiants[] = $nom;
+            $nom->setDiplome($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEtudiant(Etudiant $nom): self
+    {
+        if ($this->etudiants->contains($nom)) {
+            $this->etudiants->removeElement($nom);
+            // set the owning side to null (unless already changed)
+            if ($nom->getDiplome() === $this) {
+                $nom->setDiplome(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Diplome;
 use App\Entity\Offre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -18,6 +19,7 @@ class OffreRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Offre::class);
     }
+
 
 //    /**
 //     * @return Offre[] Returns an array of Offre objects

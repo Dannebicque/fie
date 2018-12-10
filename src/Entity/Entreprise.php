@@ -19,7 +19,7 @@ class Entreprise
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Offre", mappedBy="entreprise")
+     * @ORM\OneToMany(targetEntity="App\Entity\Offre", mappedBy="entreprise", cascade={"PERSIST"})
      */
     private $offres;
 
@@ -64,7 +64,7 @@ class Entreprise
     private $datedepot;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Representant", mappedBy="entreprise")
+     * @ORM\OneToMany(targetEntity="App\Entity\Representant", mappedBy="entreprise", cascade={"PERSIST"})
      */
     private $representants;
 
@@ -292,5 +292,9 @@ class Entreprise
         $this->remarques = $remarques;
 
         return $this;
+    }
+
+    public function display() {
+        return $this->societe.' ('.$this->ville.', '.$this->cp.')';
     }
 }

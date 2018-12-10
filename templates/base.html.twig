@@ -4,16 +4,40 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+        <style>
+            body {
+                background-color: #E0E0E0;
+                color: #224A9A;
+            }
+
+            .titre {
+                margin-top:40px
+            }
+        </style>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-    <div class="container">
-        <h1>Forum IUT-Entreprise | IUT De Troyes</h1>
-        <h2>Le 7 février 2019 de 14h00 à 17h30</h2>
+    <div class="container container-body">
+        <div class="row" style="margin-bottom: 15px">
+            <div class="col-sm-4">
+                <a href="{{ path('homepage') }}" class="logo"><img src="{{ asset('images/logo.png')
+                    }}" height="200px"></a>
+            </div>
+            <div class="col-sm-6">
+                <h1 class="display-4 text-center titre">Le 7 février 2019 de 14h00 à 17h30</h1>
+            </div>
+        </div>
+
    {% block content %}
 
    {% endblock %}
     </div>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Forum IUT-Entreprise | 2019 | IUT de Troyes | Votre contact : <a
+                        href="mailot:fanny.passemard@univ-reims.fr">Fanny Passemard</a></span>
+        </div>
+    </footer>
         <script src="{{ asset('build/app.js') }}"></script>
 
         <script type="text/javascript">

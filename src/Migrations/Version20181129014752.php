@@ -8,15 +8,15 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20181008142154 extends AbstractMigration
+final class Version20181129014752 extends AbstractMigration
 {
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE representant ADD civilite VARCHAR(3) NOT NULL');
-        $this->addSql('ALTER TABLE entreprise CHANGE remarques remarques LONGTEXT DEFAULT NULL');
+        $this->addSql('DROP INDEX UNIQ_717E22E3AA08CB10 ON etudiant');
+        $this->addSql('ALTER TABLE etudiant DROP login');
     }
 
     public function down(Schema $schema) : void
@@ -24,7 +24,7 @@ final class Version20181008142154 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE entreprise CHANGE remarques remarques LONGTEXT NOT NULL COLLATE utf8mb4_unicode_ci');
-        $this->addSql('ALTER TABLE representant DROP civilite');
+        $this->addSql('ALTER TABLE etudiant ADD login VARCHAR(10) NOT NULL COLLATE utf8mb4_unicode_ci');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_717E22E3AA08CB10 ON etudiant (login)');
     }
 }
