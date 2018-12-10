@@ -30,7 +30,6 @@ class Etudiant extends User implements \Serializable
 
     public function __construct()
     {
-        parent::__construct();
         $this->candidatures = new ArrayCollection();
         $this->setRoles(['ROLE_ETUDIANT']);
 

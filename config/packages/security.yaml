@@ -1,12 +1,7 @@
 security:
     encoders:
-<<<<<<< HEAD
         App\Entity\User:
             algorithm: bcrypt
-
-=======
-        App\Entity\Representant: bcrypt
->>>>>>> 9fb6b279e77577f5220c74c759ad2c67fb7cca50
 
     role_hierarchy:
     #- ROLE_SUPER_ADMIN:ROLE_PERMANENT
@@ -14,24 +9,17 @@ security:
     providers:
         chain_provider:
             chain:
-<<<<<<< HEAD
                 providers: [etudiant_user, personnel_user]
         personnel_user:
             entity: { class: App\Entity\Representant, property: email }
         etudiant_user:
-            entity: { class: App\Entity\Etudiant, property: email }
+            entity: { class: App\Entity\Etudiant, property: username }
 #        # used to reload user from session & other features (e.g. switch_user)
 #        app_user_provider:
 #            entity:
 #                class: App\Entity\User
 #                property: email
-=======
-                providers: [personnel_user, etudiant_user]
-        personnel_user:
-            entity: { class: App\Entity\Representant, property: email }
-        etudiant_user:
-            entity: { class: App\Entity\Etudiant, property: username }
->>>>>>> 9fb6b279e77577f5220c74c759ad2c67fb7cca50
+
 
     firewalls:
         dev:

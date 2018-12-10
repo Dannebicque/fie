@@ -8,11 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RepresentantRepository")
  */
-<<<<<<< HEAD
 class Representant extends User implements \Serializable
-=======
-class Representant implements UserInterface
->>>>>>> 9fb6b279e77577f5220c74c759ad2c67fb7cca50
 {
     /**
      * @ORM\Id()
@@ -41,28 +37,10 @@ class Representant implements UserInterface
      */
     private $civilite;
 
-<<<<<<< HEAD
-    public function __construct()
-=======
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $roles;
 
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $password;
 
     public function __construct()
     {
-    }
-
-    public function getId(): ?int
->>>>>>> 9fb6b279e77577f5220c74c759ad2c67fb7cca50
-    {
-        parent::__construct();
         $this->setRoles(['ROLE_ENTREPRISE']);
     }
 
@@ -125,7 +103,6 @@ class Representant implements UserInterface
     }
 
     /**
-<<<<<<< HEAD
      * String representation of object
      * @link  http://php.net/manual/en/serializable.serialize.php
      * @return string the string representation of the object or null
@@ -160,65 +137,5 @@ class Representant implements UserInterface
             $this->password,
             $this->email
         ] = unserialize($serialized, ['allowed_classes' => false]);
-=======
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
-    {
-        return (string)$this->email;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-        $roles = json_decode($this->roles);
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_ENTREPRISE';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = json_encode($roles);
-
-        return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
-    {
-        return (string)$this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getSalt()
-    {
-        // not needed when using the "bcrypt" algorithm in security.yaml
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials()
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
->>>>>>> 9fb6b279e77577f5220c74c759ad2c67fb7cca50
     }
 }
