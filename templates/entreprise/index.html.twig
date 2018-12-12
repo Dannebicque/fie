@@ -5,19 +5,19 @@
 {% block body %}
     <h1>Liste des entreprises présentes</h1>
     <a href="{{ path('entreprise_export') }}">Exporter liste des entreprises</a><br>
-    <table class="table">
+    <table class="table" id="datatable_entreprise">
         <thead>
             <tr>
                 <th>Société</th>
-                <th>Représentants (le premier)</th>
-                <th>email (le premier)</th>
-                <th>Stand (oui/non)</th>
-                <th>Jobdating (oui/non)</th>
-                <th>Pot cloture (oui/non + nb personnes)</th>
-                <th>Prise (oui/non)</th>
-                <th>Table (1,2,3)</th>
-                <th>Chaisses Supp. (Nb)</th>
-                <th>actions</th> + mise à jour excel
+                <th>Représentants</th>
+                <th>email</th>
+                <th>Stand</th>
+                <th>Jobdating</th>
+                <th>Pot cloture</th>
+                <th>Prise</th>
+                <th>Nb. Tables</th>
+                <th>Nb. Chaises</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
@@ -26,10 +26,14 @@
         {% for entreprise in entreprises %}
             <tr>
                 <td>{{ entreprise.societe }}</td>
-                <td>{% for representant in entreprise.representants %}{{ representant.display }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                <td>{% for representant in entreprise.representants %}{% if loop.first %}{{ representant.display }}{% endif %}{% endfor %}</td>
+                <td>{% for representant in entreprise.representants %}{% if loop.first %}<a href="mailto:{{ representant.email }}" target="_blank">{{ representant.email }}</a>{% endif %}{% endfor %}</td>
                 <td>{{ entreprise.presentationEntreprise ? 'Oui' : 'Non' }}</td>
                 <td>{{ entreprise.jobdating ? 'Oui' : 'Non' }}</td>
-                <td>{{ entreprise.potcloture ? 'Oui' : 'Non' }}</td>
+                <td>{{ entreprise.potcloture ? 'Oui' : 'Non' }} ({{ entreprise.representants|length }})</td>
+                <td>{{ entreprise.prise ? 'oui':'non' }}</td>
+                <td>{{ entreprise.nbtables }}</td>
+                <td>{{ entreprise.nbchaises }}</td>
                 <td>
                     <a href="{{ path('entreprise_show', {'id': entreprise.id}) }}" class="btn btn-info" title="Détails"><i class="fas fa-eye"></i></a>
                     <a href="{{ path('entreprise_edit', {'id': entreprise.id}) }}" class="btn btn-warning" title="Modifier"><i class="fas fa-pencil-alt"></i></a>

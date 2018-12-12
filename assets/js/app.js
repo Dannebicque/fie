@@ -14,6 +14,10 @@ require('@fortawesome/fontawesome-free/js/all.js');
 const $ = require('jquery')
 require('bootstrap')
 require('./jquery.collection')
+require( 'datatables.net-bs4' );
+
+$('#datatable_entreprise').DataTable({});
+
 $('.selector-representant').collection({
   init_with_n_elements: 1,
   add_at_the_end: true,
