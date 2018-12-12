@@ -1,6 +1,26 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    <style>
 
-{% block content %}
+    </style>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row" style="margin-bottom: 15px">
+        <div class="col-sm-4">
+            <a href="{{ path('homepage') }}" class="logo"><img src="{{ asset('images/logo.png')
+                }}" height="200px"></a>
+        </div>
+        <div class="col-sm-6">
+            <h1 class="display-4 text-center titre">Le 7 février 2019 de 14h00 à 17h30</h1>
+        </div>
+    </div>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{{ path('administration_index') }}">Accueil</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,9 +49,30 @@
             </form>
         </div>
     </nav>
-    <div class="container-fluid">
+    <div>
         {% block body %}
 
         {% endblock %}
     </div>
-{% endblock %}
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3" style="padding-top: 15px"><img src="{{ asset('images/logo_iut.jpeg') }}" alt="Logo
+                 IUT"
+                                                                     height="90px"></div>
+                <div class="col-sm-6" style="padding-top: 15px"><p style="text-align: center">Forum IUT-Entreprise | 2019 | IUT de Troyes<br>
+                        Votre contact : <a href="mailto:fanny.passemard@univ-reims.fr">Fanny Passemard</a><br>
+                        IUT de Troyes, 9 rue de Québec, 10026 Troyes Cedex</p></div>
+                <div class="col-sm-3" style="padding-top: 15px"><img src="{{ asset('images/logo_urca.svg') }}"
+                                                                     alt="Logo URCA" height="90px"></div>
+            </div>
+        </div>
+    </footer>
+</div>
+    <script src="{{ asset('build/app.js') }}"></script>
+
+    <script type="text/javascript">
+        {% block javascripts %}{% endblock %}
+    </script>
+</body>
+</html>
