@@ -30,11 +30,12 @@ class EntrepriseType extends AbstractType
                 'prototype'     => true,
                 'allow_delete'  => true,
                 'by_reference'  => false,
-                'label' => 'Entreprise representée par : ',
+                'label' => 'L\'entreprise sera représentée par : ',
                 'attr'          => array(
                     'class' => 'selector-representant',
                 ),
             ])
+            //todo: au moins l'un des deux premier obligatoire pour avoir le pot
             ->add('presentation_entreprise', CheckboxType::class, [
                 'label'    => 'Souhaite présenter l\'entreprise sur un stand',
                 'required' => false
@@ -47,10 +48,27 @@ class EntrepriseType extends AbstractType
                 'label'    => 'Souhaite participer au pôt de cloture du forum',
                 'required' => false
             ])
+            ->add('paspresent', CheckboxType::class, [
+                'label'    => 'Ne souhaite pas participer au forum, mais propose de soffres de stage',
+                'required' => false
+            ])
+            ->add('nbchaises', ChoiceType::class, [
+                'label'    => 'Nombre de chaises souhaitées (2 par défaut)',
+                'choices' => [1 => 1, 2 => 2, 3 => 3, 4 => 4]
+            ])
+            ->add('nbtables', ChoiceType::class, [
+                'label'    => 'Nombre de tables souhaitées (1 par défaut (100cm x 140cm)',
+                'choices' => [1 => 1, 2 => 2, 3 => 3, 4 => 4]
+            ])
+            ->add('prise', ChoiceType::class, [
+                'label'    => 'Besoin d\'une prise électrique ?',
+                'choices' => ['Oui' => true, 'Non' => false],
+                'expanded' => true
+            ])
             ->add('remarques', TextareaType::class, ['label' => 'Remarques ou suggestions', 'required' => false])
             ->add('offres', CollectionType::class, [
                 'entry_type'    => OffreType::class,
-                'entry_options' => ['label' => 'Offre xx'],
+                'entry_options' => ['label' => 'Offre de stage'],
                 'allow_add'     => true,
                 'prototype'     => true,
                 'allow_delete'  => true,

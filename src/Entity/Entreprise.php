@@ -78,6 +78,31 @@ class Entreprise
      */
     private $remarques;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $paspresent;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nbtables = 1;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nbchaises = 2;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $prise = false;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $numerostand = 0;
+
     public function __construct()
     {
         $this->datedepot = new \DateTime('now');
@@ -296,5 +321,65 @@ class Entreprise
 
     public function display() {
         return $this->societe.' ('.$this->ville.', '.$this->cp.')';
+    }
+
+    public function getPaspresent(): ?bool
+    {
+        return $this->paspresent;
+    }
+
+    public function setPaspresent(bool $paspresent): self
+    {
+        $this->paspresent = $paspresent;
+
+        return $this;
+    }
+
+    public function getNbtables(): ?int
+    {
+        return $this->nbtables;
+    }
+
+    public function setNbtables(int $nbtables): self
+    {
+        $this->nbtables = $nbtables;
+
+        return $this;
+    }
+
+    public function getNbchaises(): ?int
+    {
+        return $this->nbchaises;
+    }
+
+    public function setNbchaises(int $nbchaises): self
+    {
+        $this->nbchaises = $nbchaises;
+
+        return $this;
+    }
+
+    public function getPrise(): ?bool
+    {
+        return $this->prise;
+    }
+
+    public function setPrise(bool $prise): self
+    {
+        $this->prise = $prise;
+
+        return $this;
+    }
+
+    public function getNumerostand(): ?int
+    {
+        return $this->numerostand;
+    }
+
+    public function setNumerostand(int $numerostand): self
+    {
+        $this->numerostand = $numerostand;
+
+        return $this;
     }
 }

@@ -15,6 +15,7 @@ class DiplomeType extends AbstractType
             ->add('sigle')
             ->add('libelle')
         ;
+        //todo: pouvoir ajouter les périodes de stages. et afficher dans le formulaire.
     }
 
     public function configureOptions(OptionsResolver $resolver)

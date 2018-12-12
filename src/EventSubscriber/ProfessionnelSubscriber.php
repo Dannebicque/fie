@@ -45,7 +45,7 @@ class ProfessionnelSubscriber implements EventSubscriberInterface
 
             ->setFrom([Events::MAIL_EXPEDITEUR => 'Forum IUT Entreprise, IUT de Troyes'])
             ->setTo($mails)
-            ->setSubject('Confirmation d\'inscription au FORULM IUT Entreprise')
+            ->setSubject('Confirmation d\'inscription au FORUM IUT Entreprise')
             ->setBody($this->templating->render('mails/confirmation.html.twig', ['entreprise' => $entreprise]))
             ->setReplyTo(Events::MAIL_EXPEDITEUR);
 
@@ -63,7 +63,7 @@ class ProfessionnelSubscriber implements EventSubscriberInterface
         $mail
             ->setFrom(Events::MAIL_EXPEDITEUR)
             ->setTo($mails)
-            ->setSubject('Confirmation d\'inscription au FORULM IUT Entreprise')
+            ->setSubject('Création d\'un compte pour le FORUM IUT Entreprise')
             ->setBody($this->templating->render('mails/create-compte.html.twig', ['representant' => $representant]))
             ->setReplyTo(Events::MAIL_EXPEDITEUR);
 

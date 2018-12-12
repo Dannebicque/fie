@@ -9,14 +9,20 @@
         <thead>
             <tr>
                 <th>Société</th>
-                <th>Représentants</th>
-                <th>Stand</th>
-                <th>Jobdating</th>
-                <th>Pot cloture</th>
-                <th>actions</th>
+                <th>Représentants (le premier)</th>
+                <th>email (le premier)</th>
+                <th>Stand (oui/non)</th>
+                <th>Jobdating (oui/non)</th>
+                <th>Pot cloture (oui/non + nb personnes)</th>
+                <th>Prise (oui/non)</th>
+                <th>Table (1,2,3)</th>
+                <th>Chaisses Supp. (Nb)</th>
+                <th>actions</th> + mise à jour excel
             </tr>
         </thead>
         <tbody>
+        - Nb d'inscrits pour le pot.
+        -
         {% for entreprise in entreprises %}
             <tr>
                 <td>{{ entreprise.societe }}</td>

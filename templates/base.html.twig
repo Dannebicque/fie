@@ -5,14 +5,7 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="stylesheet" href="{{ asset('build/app.css') }}">
         <style>
-            body {
-                background-color: #E0E0E0;
-                color: #224A9A;
-            }
 
-            .titre {
-                margin-top:40px
-            }
         </style>
         {% block stylesheets %}{% endblock %}
     </head>
@@ -34,8 +27,16 @@
     </div>
     <footer class="footer">
         <div class="container">
-            <span class="text-muted">Forum IUT-Entreprise | 2019 | IUT de Troyes | Votre contact : <a
-                        href="mailot:fanny.passemard@univ-reims.fr">Fanny Passemard</a></span>
+            <div class="row">
+                <div class="col-sm-3" style="padding-top: 15px"><img src="{{ asset('images/logo_iut.jpeg') }}" alt="Logo
+                 IUT"
+                                            height="90px"></div>
+                <div class="col-sm-6" style="padding-top: 15px"><p style="text-align: center">Forum IUT-Entreprise | 2019 | IUT de Troyes<br>
+                    Votre contact : <a href="mailto:fanny.passemard@univ-reims.fr">Fanny Passemard</a><br>
+                    IUT de Troyes, 9 rue de Québec, 10026 Troyes Cedex</p></div>
+                <div class="col-sm-3" style="padding-top: 15px"><img src="{{ asset('images/logo_urca.svg') }}"
+                                                                     alt="Logo URCA" height="90px"></div>
+            </div>
         </div>
     </footer>
         <script src="{{ asset('build/app.js') }}"></script>

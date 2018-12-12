@@ -25,6 +25,7 @@ $('.selector-representant').collection({
 $('.selector-offre').collection({
   init_with_n_elements: 1,
   add_at_the_end: true,
+  position_field_selector: '.my-position',
   min: 0,
   add: '<a href="#" class="btn btn-primary">[ + Ajouter une offre de stage]</a>',
   remove: '<a href="#" class="btn btn-warning">[ - Retirer une offre de stage]</a>',

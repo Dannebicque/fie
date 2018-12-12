@@ -18,7 +18,9 @@ class OffreType extends AbstractType
         $builder
             ->add('titre', TextType::class, ['label' => 'Intitulé de l\'offre de stage'])
             ->add('decription', TextareaType::class, ['label' => 'Mission(s) Proposée(s)', 'attr' => ['rows' => 10]])
-            ->add('profilrecherche', TextareaType::class, ['label'=>'Profil du candidat recherché', 'attr' => ['rows' => 10]])
+            ->add('profilrecherche', TextareaType::class, ['label'=>'Profil du candidat recherché', 'required' => 'false', 'attr' => ['rows' => 10]])
+            //todo: gérer une piece jointe par offre avec champs optionnels
+
             ->add('diplomes', EntityType::class, ['class' => Diplome::class, 'choice_label' => 'display', 'expanded' => true, 'multiple' => true, 'label' => 'Formation(s) souhaitée(s)'])
 
         ;
