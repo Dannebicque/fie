@@ -13,7 +13,7 @@ security:
         personnel_user:
             entity: { class: App\Entity\Representant, property: email }
         etudiant_user:
-            entity: { class: App\Entity\Etudiant, property: username }
+            entity: { class: App\Entity\Etudiant, property: email }
 #        # used to reload user from session & other features (e.g. switch_user)
 #        app_user_provider:
 #            entity:

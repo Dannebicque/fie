@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
-<<<<<<< HEAD
  * @ORM\MappedSuperclass
  */
 abstract class User implements UserInterface
@@ -56,7 +55,7 @@ abstract class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
