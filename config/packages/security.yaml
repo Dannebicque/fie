@@ -9,11 +9,13 @@ security:
     providers:
         chain_provider:
             chain:
-                providers: [etudiant_user, personnel_user]
+                providers: [etudiant_user, personnel_user,administrateur_user]
         personnel_user:
             entity: { class: App\Entity\Representant, property: email }
         etudiant_user:
             entity: { class: App\Entity\Etudiant, property: email }
+        administrateur_user:
+            entity: { class: App\Entity\Administrateur, property: email }
 #        # used to reload user from session & other features (e.g. switch_user)
 #        app_user_provider:
 #            entity:
@@ -61,4 +63,4 @@ security:
     - { path: '^/connexion', roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: '^/professionnel/gestion', roles: ROLE_ENTREPRISE }
     - { path: '^/etudiant/gestion', roles: ROLE_ETUDIANT }
-    #- { path: '^/administration', roles: ROLE_ADMIN }
+    - { path: '^/administration', roles: ROLE_ADMINISTRATEUR }

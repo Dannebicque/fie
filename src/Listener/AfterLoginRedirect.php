@@ -45,7 +45,7 @@ class AfterLoginRedirect implements AuthenticationSuccessHandlerInterface
         if (\in_array('ROLE_ENTREPRISE', $rolesTab, true)) {
             // c'est un super administrateur : on le rediriger vers l'espace super-admin
             $redirection = new RedirectResponse($this->router->generate('professionnel_gestion'));
-        } elseif (\in_array('ROLE_ADMIN', $rolesTab, true)) {
+        } elseif (\in_array('ROLE_ADMINISTRATEUR', $rolesTab, true)) {
             // c'est un administratif : on le rediriger vers l'espace administration
             $redirection = new RedirectResponse($this->router->generate('administration_index'));
         } elseif (\in_array('ROLE_ETUDIANT', $rolesTab, true)) {
