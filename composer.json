@@ -23,7 +23,8 @@
         "symfony/validator": "*",
         "symfony/webpack-encore-bundle": "dev-master",
         "symfony/webpack-encore-pack": "dev-master",
-        "symfony/yaml": "*"
+        "symfony/yaml": "*",
+        "vich/uploader-bundle": "^1.8@dev"
     },
     "require-dev": {
         "symfony/dotenv": "*"

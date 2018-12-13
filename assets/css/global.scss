@@ -7,6 +7,15 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~datatables.net-bs4/css/dataTables.bootstrap4";
 
+label.required:after {
+  content:"*";
+  font-weight: bold;
+}
+
+.text-muted {
+  color: white;
+}
+
 body {
   background-color: #f5f5f5;
   color: #224A9A;

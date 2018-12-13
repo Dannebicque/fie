@@ -19,10 +19,10 @@ class EntrepriseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('societe', TextType::class, ['label' => 'Nom de l\'entreprise : '])
-            ->add('adresse', TextType::class, ['label' => 'Adresse de l\'entreprise : '])
-            ->add('cp', TextType::class, ['label' => 'Code postal de l\'entreprise : '])
-            ->add('ville', TextType::class, ['label' => 'Ville de l\'entreprise : '])
+            ->add('societe', TextType::class, ['label' => 'Nom de l\'entreprise '])
+            ->add('adresse', TextType::class, ['label' => 'Adresse de l\'entreprise '])
+            ->add('cp', TextType::class, ['label' => 'Code postal de l\'entreprise '])
+            ->add('ville', TextType::class, ['label' => 'Ville de l\'entreprise '])
             ->add('representants', CollectionType::class, [
                 'entry_type'    => RepresentantType::class,
                 'entry_options' => ['label' => false],
@@ -30,7 +30,7 @@ class EntrepriseType extends AbstractType
                 'prototype'     => true,
                 'allow_delete'  => true,
                 'by_reference'  => false,
-                'label' => 'L\'entreprise sera représentée par : ',
+                'label' => 'L\'entreprise sera représentée par (inscrire toutes les personnes présentes): ',
                 'attr'          => array(
                     'class' => 'selector-representant',
                 ),
@@ -49,23 +49,23 @@ class EntrepriseType extends AbstractType
                 'required' => false
             ])
             ->add('paspresent', CheckboxType::class, [
-                'label'    => 'Ne souhaite pas participer au forum, mais propose de soffres de stage',
+                'label'    => 'Ne souhaite pas participer au forum, mais propose des offres de stage',
                 'required' => false
             ])
             ->add('nbchaises', ChoiceType::class, [
-                'label'    => 'Nombre de chaises souhaitées (2 par défaut)',
+                'label'    => 'Nombre de chaises souhaitées (2 par défaut) ',
                 'choices' => [1 => 1, 2 => 2, 3 => 3, 4 => 4]
             ])
             ->add('nbtables', ChoiceType::class, [
-                'label'    => 'Nombre de tables souhaitées (1 par défaut (100cm x 140cm)',
+                'label'    => 'Nombre de tables souhaitées (1 par défaut (100cm x 140cm) ',
                 'choices' => [1 => 1, 2 => 2, 3 => 3, 4 => 4]
             ])
             ->add('prise', ChoiceType::class, [
-                'label'    => 'Besoin d\'une prise électrique ?',
+                'label'    => 'Besoin d\'une prise électrique ? ',
                 'choices' => ['Oui' => true, 'Non' => false],
                 'expanded' => true
             ])
-            ->add('remarques', TextareaType::class, ['label' => 'Remarques ou suggestions', 'required' => false])
+            ->add('remarques', TextareaType::class, ['label' => 'Remarques ou suggestions (contraintes d\'horaires, besoins spécifiques, ...)', 'required' => false])
             ->add('offres', CollectionType::class, [
                 'entry_type'    => OffreType::class,
                 'entry_options' => ['label' => 'Offre de stage'],
