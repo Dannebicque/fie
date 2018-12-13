@@ -3,11 +3,11 @@ Bonjour {{ representant.civilite }} {{ representant.nom|capitalize }},
 
 Merci pour votre participation au "Forum IUT Entreprise" de l'IUT de Troyes.
 
-Voici un résumé des informations transmises :
+Voici un résumé des informations transmises.
 
 Votre entreprise :
 
-{{ entreprise.societe }}, {{ entreprise.adresse }}.
+{{ entreprise.societe }}, {{ entreprise.adresse }}, {{ entreprise.cp }} {{ entreprise.ville }}
 
 {% if entreprise.jobdating  %}
 Vous participerez au jobdating du 7 février 2019 de 14h00 à 17h30.
@@ -18,15 +18,19 @@ Vous participerez au jobdating du 7 février 2019 de 14h00 à 17h30.
 {% if entreprise.presentationEntreprise  %}
     Vous aurez un stand pour présenter votre entreprise.
 {% endif %}
+{% if entreprise.paspresent  %}
+    Vous ne serez pas présent, mais vous souhaitez diffuser des offres de stage.
+{% endif %}
 
 {% for offre in entreprise.offres %}
 Offre N°{{ loop.index }} :
 
-{{ offre.titre}}.
+Intitulé de l'offre : {{ offre.titre}}.
 {{ offre.decription }}
+{{ offre.profilrecherche }}
+
 Diplôme(s) visé(s) : {% for diplome in offre.diplomes %}{{ diplome.sigle }}{% if not loop.last %},{% endif %} {% endfor
 %}
-    ----
 {% endfor %}
 
 En cas de besoin vous pouvez contacter Fanny Passemard (fanny.passemard@univ-reims.fr) ou  03 25 42 71 55.
@@ -35,3 +39,5 @@ En cas de besoin vous pouvez contacter Fanny Passemard (fanny.passemard@univ-rei
 Dans l'attente de vous accueillir lors de notre forum,
 
 Bien cordialement,
+
+Les organisateurs du Forum IUT-Entreprise

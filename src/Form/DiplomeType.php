@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Diplome;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,8 +15,8 @@ class DiplomeType extends AbstractType
         $builder
             ->add('sigle')
             ->add('libelle')
+            ->add('datesstages', TextareaType::class)
         ;
-        //todo: pouvoir ajouter les périodes de stages. et afficher dans le formulaire.
     }
 
     public function configureOptions(OptionsResolver $resolver)

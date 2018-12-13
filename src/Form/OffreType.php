@@ -20,7 +20,7 @@ class OffreType extends AbstractType
             ->add('titre', TextType::class, ['label' => 'Intitulé de l\'offre de stage'])
             ->add('decription', TextareaType::class, ['label' => 'Mission(s) Proposée(s)', 'attr' => ['rows' => 10]])
             ->add('profilrecherche', TextareaType::class, ['label'=>'Profil du candidat recherché', 'required' => false, 'attr' => ['rows' => 10]])
-            ->add('documentFile', VichFileType::class, ['label' => 'Joindre un fichier (pdf ou docx ou image)'])
+            ->add('documentFile', VichFileType::class, ['label' => 'Joindre un fichier (pdf ou docx ou image)', 'required' => false])
             ->add('diplomes', EntityType::class, ['class' => Diplome::class, 'choice_label' => 'display', 'expanded' => true, 'multiple' => true, 'label' => 'Formation(s) souhaitée(s)'])
 
         ;

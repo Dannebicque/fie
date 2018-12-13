@@ -10,6 +10,7 @@
             <tr>
                 <th>Sigle</th>
                 <th>Libelle</th>
+                <th>Dates Stages</th>
                 <th>Nb offres déposées</th>
                 <th>actions</th>
             </tr>
@@ -19,6 +20,7 @@
             <tr>
                 <td>{{ diplome.sigle }}</td>
                 <td>{{ diplome.libelle }}</td>
+                <td>{{ diplome.datesstages }}</td>
                 <td>{{ diplome.offres|length }}</td>
                 <td>
                     <a href="{{ path('diplome_show', {'id': diplome.id}) }}" class="btn btn-info" title="Détails"><i class="fas fa-eye"></i></a>

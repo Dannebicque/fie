@@ -43,6 +43,11 @@ class Diplome
      */
     private $etudiants;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $datesstages;
+
     public function __construct()
     {
         $this->offres = new ArrayCollection();
@@ -136,7 +141,7 @@ class Diplome
     }
 
     public function getDisplay() {
-        return $this->getLibelle().' ('.$this->getSigle().')';
+        return $this->getLibelle().' ('.$this->getSigle().', période de stage : '.$this->getDatesstages().')';
     }
 
     /**
@@ -166,6 +171,18 @@ class Diplome
                 $nom->setDiplome(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDatesstages(): ?string
+    {
+        return $this->datesstages;
+    }
+
+    public function setDatesstages(string $datesstages): self
+    {
+        $this->datesstages = $datesstages;
 
         return $this;
     }
