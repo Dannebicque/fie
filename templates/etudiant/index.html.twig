@@ -9,6 +9,7 @@
             <table class="table">
                 <thead>
                 <tr>
+                    <th>N°</th>
                     <th>Titre</th>
                     <th>Entreprise</th>
                     <th>Diplôme</th>
@@ -18,11 +19,13 @@
                 <tbody>
                 {% for offre in offres %}
                     <tr>
+                        <td>{{ offre.id }}</td>
                         <td>{{ offre.titre }}</td>
                         <td>{{ offre.entreprise ? offre.entreprise.display : 'Non défini' }}</td>
                         <td>{% for diplome in offre.diplomes %}{{ diplome.sigle }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
                         <td>
-                            <a href="{{ path('professionnel_offre_show', {'id': offre.id}) }}" class="btn btn-info" title="Détails"><i
+                            <a href="{{ path('etudiant_offre_show', {'offre': offre.id}) }}" class="btn btn-info"
+                               title="Détails"><i
                                         class="fas fa-eye"></i></a>
                         </td>
                     </tr>
@@ -37,15 +40,38 @@
     </div>
 
 
-<div class="row">
-    <div class="col-sm-12">
-<h2>Candidater pour le jobdating</h2>
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Candidater pour le jobdating</h2>
+        </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-sm-12">
-        <h2>Votre planning</h2>
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Votre planning</h2>
+            <table class="table">
+                <tr>
+                    <th>Heure</th>
+                    <th>Entreprise</th>
+                    <th>Stand</th>
+                    <th>Salle</th>
+                </tr>
+                {% for cr in creneaux %}
+                    <tr>
+                        <td>{{ cr }}</td>
+                        <th>{% if occupation[cr] is defined and occupation[cr].entreprise is defined %}{{ occupation[cr]
+                            .entreprise
+                            .societe }}{% endif %}</th>
+                        <th>{% if occupation[cr] is defined and occupation[cr].entreprise is defined %}{{ occupation[cr]
+                            .entreprise
+                            .numeroStand }}{% endif %}</th>
+                        <th>{% if occupation[cr] is defined and occupation[cr].entreprise is defined %}{{ occupation[cr]
+                            .entreprise
+                            .salle }}{% endif %}</th>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
-</div>
 {% endblock %}
+

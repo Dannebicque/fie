@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Offre{% endblock %}
+
+{% block content %}
+    <h1>Offre  N°{{ offre.id }}</h1>
+
+    <h2>L'offre</h2>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Titre</th>
+            <td>{{ offre.titre }}</td>
+        </tr>
+        <tr>
+            <th>Decription</th>
+            <td>{{ offre.decription }}</td>
+        </tr>
+        <tr>
+            <th>Profil recherché</th>
+            <td>{{ offre.profilrecherche }}</td>
+        </tr>
+        <tr>
+            <th>Document joint</th>
+            <td>{{ vich_uploader_asset(offre, 'documentFile') }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>L'entreprise</h2>
+    <table class="table">
+        <tbody>
+
+        <tr>
+            <th>Entreprise</th>
+            <td>{{ offre.entreprise.societe }}</td>
+        </tr>
+        <tr>
+            <th>Adresse</th>
+            <td>{{ offre.entreprise.adresse }} {{ offre.entreprise.cp }} {{ offre.entreprise.ville }}</td>
+        </tr>
+        <tr>
+            <th>Contact</th>
+            <td>{{ offre.entreprise.representants[0].civilite }} {{ offre.entreprise.representants[0].prenom }} {{
+                offre.entreprise.representants[0].nom }} ({{ offre
+                .entreprise.representants[0].fonction }})</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('etudiant_index') }}">Retourner à la liste</a>
+
+{% endblock %}

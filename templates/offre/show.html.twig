@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Offre</h1>
 
+
+
     <table class="table">
         <tbody>
             <tr>
@@ -19,8 +21,18 @@
                 <th>Decription</th>
                 <td>{{ offre.decription }}</td>
             </tr>
+            <tr>
+                <th>Profil recherché</th>
+                <td>{{ offre.profilrecherche }}</td>
+            </tr>
+            <tr>
+                <th>Document joint</th>
+                <td>{{ vich_uploader_asset(offre, 'documentFile') }}</td>
+            </tr>
         </tbody>
     </table>
+
+
 
     <a href="{{ path('offre_index') }}">Retourner à la liste</a>
 

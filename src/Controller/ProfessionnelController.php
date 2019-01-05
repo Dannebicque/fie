@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Creneaux;
 use App\Entity\Entreprise;
 use App\Events;
 use App\Form\EntrepriseType;
+use App\Repository\CreneauxRepository;
 use App\Repository\RepresentantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -22,6 +24,10 @@ class ProfessionnelController extends AbstractController
 {
     /**
      * @Route("/", name="professionnel_index")
+     * @param Request                  $request
+     * @param EventDispatcherInterface $eventDispatcher
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function index(Request $request, EventDispatcherInterface $eventDispatcher)
     {
@@ -53,7 +59,7 @@ class ProfessionnelController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function confirmation(Entreprise $entreprise)
+    public function confirmation(Entreprise $entreprise): \Symfony\Component\HttpFoundation\Response
     {
         return $this->render('professionnel/confirmation.html.twig', [
             'entreprise' => $entreprise
@@ -61,12 +67,17 @@ class ProfessionnelController extends AbstractController
     }
 
     /**
-     * @param Entreprise $entreprise
-     * @Route("/create-compte/{entreprise}", name="professionnel_creation_compte", methods={"POST"})
+     * @param EventDispatcherInterface     $eventDispatcher
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param Request                      $request
+     * @param RepresentantRepository       $representantRepository
+     * @param Entreprise                   $entreprise
      *
      * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/create-compte/{entreprise}", name="professionnel_creation_compte", methods={"POST"})
+     *
      */
-    public function createCompte(EventDispatcherInterface $eventDispatcher, UserPasswordEncoderInterface $passwordEncoder, Request $request, RepresentantRepository $representantRepository, Entreprise $entreprise)
+    public function createCompte(EventDispatcherInterface $eventDispatcher, UserPasswordEncoderInterface $passwordEncoder, Request $request, RepresentantRepository $representantRepository, Entreprise $entreprise): ?\Symfony\Component\HttpFoundation\Response
     {
         $email = $request->request->get('email');
         $responsable = $representantRepository->findOneBy(['email' => $email, 'entreprise' => $entreprise->getId()]);
@@ -93,10 +104,27 @@ class ProfessionnelController extends AbstractController
     /**
      * @Route("/gestion", name="professionnel_gestion")
      */
-    public function gestion() {
+    public function gestion(): \Symfony\Component\HttpFoundation\Response
+    {
 
         return $this->render('professionnel/gestion.html.twig', [
             'representant' => $this->getUser()
+        ]);
+    }
+
+    /**
+     * @Route("/planning", name="professionnel_planning", methods="GET")
+     * @param CreneauxRepository $creneauxRepository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function planning(CreneauxRepository $creneauxRepository): \Symfony\Component\HttpFoundation\Response
+    {
+        //todo: voir les créneaux de l'entreprise / offre ou un seul créneau par entreprise
+        return $this->render('professionnel/planning.html.twig', [
+            'entreprise' => $this->getUser()->getEntreprise(),
+            'creneaux' => Creneaux::TAB_CRENEAUX,
+            'occupation' =>$creneauxRepository->findByEntreprise($this->getUser()->getEntreprise())
         ]);
     }
 }

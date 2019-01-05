@@ -1,0 +1,31 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block body %}
+    <h1>Planning pour l'entreprise {{ entreprise.societe }} / {{ entreprise.numerostand }}</h1>
+    <table class="table">
+        <tr>
+            <th>Heure</th>
+            <th>Etudiant</th>
+            <th>Formation</th>
+        </tr>
+        {% for cr in creneaux %}
+            <tr>
+                <td>{{ cr }}</td>
+                {% if occupation[cr] is defined and occupation[cr].indisponible == true %}
+                    <td colspan="2">Indisponible</td>
+                {% else %}
+                    <td>{% if occupation[cr] is defined and occupation[cr].etudiant is defined %}{{ occupation[cr]
+                        .etudiant
+                        .display }}{% endif %}</td>
+                    <td>{% if occupation[cr] is defined and occupation[cr].etudiant is defined %}{{ occupation[cr]
+                        .etudiant.diplome.libelle }}{% endif %}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+{% block title %}
+    Planning pour l'entreprise {{ entreprise.societe }} / {{ entreprise.numerostand }}
+{% endblock %}
+

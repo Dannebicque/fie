@@ -1,0 +1,45 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block body %}
+    <h1>Attribution des stands</h1>
+
+    <form method="post">
+<table class="table" id="datatable_entreprise">
+    <thead>
+    <tr>
+        <th>Société</th>
+        <th>Stand</th>
+        <th>Jobdating</th>
+        <th>Prise</th>
+        <th>Nb. Tables</th>
+        <th>Nb. Chaises</th>
+        <th>N° Stand</th>
+        <th>Salle</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entreprise in entreprises %}
+    <tr>
+        <td>{{ entreprise.societe }}</td>
+        <td>{{ entreprise.presentationEntreprise ? 'Oui' : 'Non' }}</td>
+        <td>{{ entreprise.jobdating ? 'Oui' : 'Non' }}</td>
+        <td>{{ entreprise.prise ? 'oui':'non' }}</td>
+        <td>{{ entreprise.nbtables }}</td>
+        <td>{{ entreprise.nbchaises }}</td>
+        <td><input type="text" class="form-control" name="num_stand_{{ entreprise.id }}" value="{{ entreprise.numerostand }}"
+            /></td>
+        <td><input type="text" class="form-control" name="salle_{{ entreprise.id }}" value="{{ entreprise.salle }}"
+            /></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+        <input type="submit" class="btn btn-block btn-primary" value="Sauvegarder" />
+    </form>
+    <br />
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

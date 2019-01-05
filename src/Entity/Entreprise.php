@@ -103,12 +103,23 @@ class Entreprise
      */
     private $numerostand = 0;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Creneaux", mappedBy="entreprise")
+     */
+    private $creneauxes;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $salle = '-';
+
     public function __construct()
     {
         $this->datedepot = new \DateTime('now');
         $this->offres = new ArrayCollection();
         $this->representants = new ArrayCollection();
         $this->diplomes = new ArrayCollection();
+        $this->creneauxes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -371,14 +382,57 @@ class Entreprise
         return $this;
     }
 
-    public function getNumerostand(): ?int
+    public function getNumerostand()
     {
         return $this->numerostand;
     }
 
-    public function setNumerostand(int $numerostand): self
+    public function setNumerostand($numerostand = 0): self
     {
         $this->numerostand = $numerostand;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Creneaux[]
+     */
+    public function getCreneauxes(): Collection
+    {
+        return $this->creneauxes;
+    }
+
+    public function addCreneaux(Creneaux $creneaux): self
+    {
+        if (!$this->creneauxes->contains($creneaux)) {
+            $this->creneauxes[] = $creneaux;
+            $creneaux->setEntreprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreneaux(Creneaux $creneaux): self
+    {
+        if ($this->creneauxes->contains($creneaux)) {
+            $this->creneauxes->removeElement($creneaux);
+            // set the owning side to null (unless already changed)
+            if ($creneaux->getEntreprise() === $this) {
+                $creneaux->setEntreprise(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSalle(): ?string
+    {
+        return $this->salle;
+    }
+
+    public function setSalle(string $salle): self
+    {
+        $this->salle = $salle;
 
         return $this;
     }

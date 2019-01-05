@@ -28,10 +28,16 @@ class Etudiant extends User implements \Serializable
      */
     private $candidatures;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Creneaux", mappedBy="etudiant")
+     */
+    private $creneauxes;
+
     public function __construct()
     {
         $this->candidatures = new ArrayCollection();
         $this->setRoles(['ROLE_ETUDIANT']);
+        $this->creneauxes = new ArrayCollection();
 
     }
 
@@ -118,5 +124,40 @@ class Etudiant extends User implements \Serializable
             $this->password,
             $this->email
         ] = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    /**
+     * @return Collection|Creneaux[]
+     */
+    public function getCreneauxes(): Collection
+    {
+        return $this->creneauxes;
+    }
+
+    public function addCreneaux(Creneaux $creneaux): self
+    {
+        if (!$this->creneauxes->contains($creneaux)) {
+            $this->creneauxes[] = $creneaux;
+            $creneaux->setEtudiant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreneaux(Creneaux $creneaux): self
+    {
+        if ($this->creneauxes->contains($creneaux)) {
+            $this->creneauxes->removeElement($creneaux);
+            // set the owning side to null (unless already changed)
+            if ($creneaux->getEtudiant() === $this) {
+                $creneaux->setEtudiant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function display() {
+        return ucfirst($this->getPrenom()).' '.mb_strtoupper($this->getNom());
     }
 }
