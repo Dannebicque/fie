@@ -197,16 +197,23 @@ class EntrepriseController extends AbstractController
         $entreprise = $entrepriseRepository->find($request->request->get('entreprise'));
         $cr = $creneauxRepository->findBy(['heure' => $request->request->get('cr'), 'entreprise' => $entreprise->getId()]);
 
+        if ($request->request->get('value') == 'true') {
+            $value = true;
+        } else {
+            $value=false;
+        }
+
+
         if ($entreprise) {
             if (count($cr) === 1) {
-                $cr[0]->setIndisponible($request->request->get('value'));
+                $cr[0]->setIndisponible($value);
                 $entityManager->persist($cr[0]);
                 $entityManager->flush();
             } else if (count($cr) === 0) {
                 $cr = new Creneaux();
                 $cr->setEntreprise($entreprise);
                 $cr->setHeure($request->request->get('cr'));
-                $cr->setIndisponible($request->request->get('value'));
+                $cr->setIndisponible($value);
                 $entityManager->persist($cr);
                 $entityManager->flush();
             }

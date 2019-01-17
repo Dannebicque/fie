@@ -15,10 +15,10 @@
                 {% if occupation[cr] is defined and occupation[cr].indisponible == true %}
                     <td colspan="2">Indisponible</td>
                 {% else %}
-                    <td>{% if occupation[cr] is defined and occupation[cr].etudiant is defined %}{{ occupation[cr]
+                    <td>{% if occupation[cr] is defined and occupation[cr].etudiant != null %}{{ occupation[cr]
                         .etudiant
                         .display }}{% endif %}</td>
-                    <td>{% if occupation[cr] is defined and occupation[cr].etudiant is defined %}{{ occupation[cr]
+                    <td>{% if occupation[cr] is defined and occupation[cr].etudiant != null %}{{ occupation[cr]
                         .etudiant.diplome.libelle }}{% endif %}</td>
                 {% endif %}
                 <td><input type="checkbox" {% if occupation[cr] is defined and occupation[cr].indisponible == true
