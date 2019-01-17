@@ -200,6 +200,7 @@ class EntrepriseController extends AbstractController
         if ($entreprise) {
             if (count($cr) === 1) {
                 $cr[0]->setIndisponible($request->request->get('value'));
+                $entityManager->persist($cr[0]);
                 $entityManager->flush();
             } else if (count($cr) === 0) {
                 $cr = new Creneaux();
