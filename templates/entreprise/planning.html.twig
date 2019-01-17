@@ -7,6 +7,7 @@
             <th>Heure</th>
             <th>Etudiant</th>
             <th>Formation</th>
+            <th></th>
         </tr>
         {% for cr in creneaux %}
             <tr>
@@ -20,12 +21,21 @@
                     <td>{% if occupation[cr] is defined and occupation[cr].etudiant is defined %}{{ occupation[cr]
                         .etudiant.diplome.libelle }}{% endif %}</td>
                 {% endif %}
+                <td><input type="checkbox" {% if occupation[cr] is defined and occupation[cr].indisponible == true
+                    %}checked{% endif %} class="indisponible" data-cr="{{ cr }}" data-entreprise="{{ entreprise
+                    .id }}" />
+                    Indisponible</td>
             </tr>
         {% endfor %}
     </table>
+    <div id="ajax-url" data-url="{{ path('ajax_entreprise_indisponible') }}"></div>
 {% endblock %}
 
 {% block title %}
     Planning pour l'entreprise {{ entreprise.societe }} / {{ entreprise.numerostand }}
+{% endblock %}
+
+{% block javascripts %}
+
 {% endblock %}
 

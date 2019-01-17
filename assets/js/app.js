@@ -14,7 +14,7 @@ require('@fortawesome/fontawesome-free/js/all.js');
 const $ = require('jquery')
 require('bootstrap')
 require('./jquery.collection')
-require( 'datatables.net-bs4' );
+require('datatables.net-bs4' );
 
 $('#datatable_entreprise').DataTable({});
 
@@ -48,5 +48,30 @@ $radios.change(function() {
   }
 });
 
+
+$('.indisponible').click(function() {
+  // this function will get executed every time the #home element is clicked (or tab-spacebar changed)
+  if ($(this).is(":checked")) {
+    $.ajax({
+      url: $('#ajax-url').data('url'),
+      method: 'POST',
+      data: {
+        cr: $(this).data('cr'),
+        entreprise: $(this).data('entreprise'),
+        value: true
+      }
+    })
+  } else {
+    $.ajax({
+      url: $('#ajax-url').data('url'),
+      method: 'POST',
+      data: {
+        cr: $(this).data('cr'),
+        entreprise: $(this).data('entreprise'),
+        value: false
+      }
+    })
+  }
+});
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // var $ = require('jquery');

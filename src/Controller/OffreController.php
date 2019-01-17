@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Entreprise;
 use App\Entity\Offre;
 use App\Form\OffreType;
 use App\Repository\OffreRepository;
@@ -76,11 +77,10 @@ class OffreController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="offre_new", methods="GET|POST")
+     * @Route("/new/{entreprise}", name="offre_new", methods="GET|POST")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Entreprise $entreprise = null): Response
     {
-        $offre = new Offre();
         $form = $this->createForm(OffreType::class, $offre);
         $form->handleRequest($request);
 

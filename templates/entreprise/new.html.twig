@@ -5,7 +5,61 @@
 {% block body %}
     <h1>Create new Entreprise</h1>
 
-    {{ include('common/_form.html.twig') }}
+    {% form_theme form
+        'my-form.html.twig' %}
+    {{ form_start(form) }}
+    <section class="formulaire">
+        <h2>Vos informations :</h2>
+        {{ form_row(form.societe) }}
+        {{ form_row(form.adresse) }}
+        <div class="row">
+            <div class="col-sm-6">{{ form_row(form.cp) }}</div>
+            <div class="col-sm-6">{{ form_row(form.ville) }}</div>
+        </div>
+    </section>
+
+    <section class="formulaire">
+        <h2>Personnes présentes :</h2>
+        <div class="alert alert-info">
+            Si vous disposez, parmi vos employés, d'anciens étudiants de l'IUT, ils seraient les bienvenus pour exposer leur parcours et leur métier.
+        </div>
+        {{ form_row(form.representants) }}
+    </section>
+    <section class="formulaire">
+        <h2>Votre participation :</h2>
+        {{ form_row(form.presentation_entreprise) }}
+        {{ form_row(form.jobdating) }}
+        {{ form_row(form.potcloture) }}
+        <div class="alert alert-success">
+            <strong>PS.</strong> Si vous ne souhaitez ou ne pouvez participer à cette manifestation, mais que vous avez une ou des offres, vous pouvez nous les transmettre. Nous les afficherons afin que les étudiants prennent contact avec vous.
+        </div>
+        {{ form_row(form.paspresent) }}
+    </section>
+
+    <section class="formulaire">
+        <h2>Votre confort :</h2>
+        <div class="row">
+            <div class="col-sm-4">{{ form_label(form.nbchaises) }}</div>
+            <div class="col-sm-4">{{ form_label(form.nbtables) }}</div>
+            <div class="col-sm-4">{{ form_label(form.prise) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">{{ form_widget(form.nbchaises) }}</div>
+            <div class="col-sm-4">{{ form_widget(form.nbtables) }}</div>
+            <div class="col-sm-4">{{ form_widget(form.prise) }}</div>
+        </div>
+        {{ form_row(form.remarques) }}
+
+    </section>
+
+    <section class="formulaire">
+        <h2>Vos offres :</h2>
+        {{ form_widget(form) }}
+    </section>
+
+    <button class="btn btn-success">Enregistrer votre participation</button>
+
+    {{ form_end(form) }}
 
     <a href="{{ path('entreprise_index') }}">Annuler et retourner à la liste</a>
 {% endblock %}
