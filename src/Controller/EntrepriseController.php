@@ -182,7 +182,7 @@ class EntrepriseController extends AbstractController
         return $this->render('entreprise/planning.html.twig', [
             'entreprise' => $entreprise,
             'creneaux'   => Creneaux::TAB_CRENEAUX,
-            'occupation' => $creneauxRepository->findByEntreprise($this->getUser()->getEntreprise())
+            'occupation' => $creneauxRepository->findByEntreprise($entreprise)
             ]);
     }
 
