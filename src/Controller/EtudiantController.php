@@ -26,6 +26,7 @@ class EtudiantController extends AbstractController
     public function index(CreneauxRepository $creneauxRepository)
     {
         return $this->render('etudiant/index.html.twig', [
+            'user' => $this->getUser(),
             'offres'     => $this->getUser()->getDiplome()->getOffres(),
             'creneaux'   => Creneaux::TAB_CRENEAUX,
             'occupation' => $creneauxRepository->findByEtudiant($this->getUser())
