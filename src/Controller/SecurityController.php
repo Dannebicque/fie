@@ -108,7 +108,8 @@ class SecurityController extends AbstractController
                     ->setFrom([Events::MAIL_EXPEDITEUR => 'Forum IUT Entreprise, IUT de Troyes'])
                     ->setTo([$etudiant->getEmail()])
                     ->setSubject('Activation de votre compte pour le FORUM IUT Entreprise')
-                    ->setBody($this->render('mails/first_connexion.html.twig', ['etudiant' => $etudiant, 'password' => $random]))
+                    ->setBody($this->renderView('mails/first_connexion.html.twig', ['etudiant' => $etudiant, 'password' => $random]),
+                        'text/plain')
                     ->setReplyTo(Events::MAIL_EXPEDITEUR);
 
                 $mailer->send($mail);
