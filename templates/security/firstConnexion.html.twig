@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}Connexion{% endblock %}
+
+{% block content %}
+    {% if error is defined %}
+        <div class="alert alert-danger">
+            {{ error.messageKey }}
+        </div>
+    {% endif %}
+
+    <form class="form" action="{{ path('security_first_connexion') }}" method="post">
+
+        <h1 class="h3 mb-3 font-weight-normal">Activiation de votre compte Etudiant</h1>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" class="form-control" required
+                   autofocus>
+        </div>
+        <div class="form-group">
+            <label for="numetu">Numéro étudiant</label>
+            <input type="text" id="numetu" name="numetu" class="form-control" required>
+            <p class="help">Vous pouvez retrouver votre numéro étudiant (commencant par 21******) sur votre car
+                étudiante ou sur l'intranet dans votre profil).</p>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Activer votre compte</button>
+    </form>
+    <br/>
+{% endblock %}

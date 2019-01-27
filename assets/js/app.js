@@ -73,5 +73,25 @@ $('.indisponible').click(function() {
     })
   }
 });
+
+$('.modalRdv').click(function(){
+  $('#zoneModal').load($('#ajax-url').data('url'), {offre: $(this).data('offre')})
+})
+
+$(document).on('click', "#btnSave", function(e){
+  e.preventDefault();
+  //alert($('input[name=creneau]:checked').val())
+  $.ajax({
+    url: $('#urlSave').val(),
+    method: 'POST',
+    data: {
+      creneau: $('input[name=creneau]:checked').val()
+    }
+  })
+})
+
+$("#modalRdv").on('hidden.bs.modal', function () {
+  window.location.reload(true);
+});
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // var $ = require('jquery');

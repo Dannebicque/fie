@@ -33,6 +33,11 @@ class Etudiant extends User implements \Serializable
      */
     private $creneauxes;
 
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $numetudiant;
+
     public function __construct()
     {
         $this->candidatures = new ArrayCollection();
@@ -159,5 +164,17 @@ class Etudiant extends User implements \Serializable
 
     public function display() {
         return ucfirst($this->getPrenom()).' '.mb_strtoupper($this->getNom());
+    }
+
+    public function getNumetudiant(): ?string
+    {
+        return $this->numetudiant;
+    }
+
+    public function setNumetudiant(string $numetudiant): self
+    {
+        $this->numetudiant = $numetudiant;
+
+        return $this;
     }
 }

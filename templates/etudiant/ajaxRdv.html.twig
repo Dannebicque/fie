@@ -1,0 +1,14 @@
+Liste des creneaux disponibles
+
+<form action="#" method="post">
+{% for creneau in creneaux %}
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="creneau" id="creneau{{ loop.index }}" value="{{
+        creneau }}">
+        <label class="form-check-label" for="creneau{{ loop.index }}">
+            {{ creneau }}
+        </label>
+    </div>
+{% endfor %}
+    <input type="hidden" value="{{ path('etudiant_ajax_sauvegarde_rdv', {offre:offre.id}) }}" id="urlSave">
+</form>

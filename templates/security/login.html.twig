@@ -9,22 +9,32 @@
         </div>
     {% endif %}
 
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
     <form class="form" action="{{ path('security_login') }}" method="post">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
 
         <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
 
         <div class="form-group">
-            <label for="username">Email (entreprise) / Login (étudiant)</label>
+            <label for="username">Email</label>
             <input type="email" id="username" name="_username" value="{{ last_username }}" class="form-control" required autofocus>
         </div>
         <div class="form-group">
             <label for="_password">Password</label>
             <input type="password" id="_password" name="_password" class="form-control" placeholder="Password" required>
         </div>
-        <a class="text-muted hover-primary fs-13"
-           href="{{ path('security_password_lost') }}">Mot de passe perdu</a>
-
+        <a class="text-muted hover-primary fs-13" href="{{ path('security_password_lost') }}">Mot de passe perdu</a>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
     </form>
+    <br/>
+    <div class="alert alert-warning">
+    <b>Information pour les étudiants</b><p>Lors de votre première connexion sur ce site, veuillez compléter <a
+                href="{{ path('security_first_connexion') }}">le formulaire accessible sur ce lien pour obtenir votre
+                mot de passe
+                .</a></p></div>
 {% endblock %}

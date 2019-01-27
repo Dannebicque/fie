@@ -3,6 +3,18 @@
 {% block title %}Espace Etudiant{% endblock %}
 
 {% block content %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-error">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
     <div class="row">
         <div class="col-sm-12">
             <h2>Les offres disponibles</h2>
@@ -12,6 +24,7 @@
                     <th>N°</th>
                     <th>Titre</th>
                     <th>Entreprise</th>
+                    <th>RDV</th>
                     <th>Diplôme</th>
                     <th>actions</th>
                 </tr>
@@ -22,6 +35,14 @@
                         <td>{{ offre.id }}</td>
                         <td>{{ offre.titre }}</td>
                         <td>{{ offre.entreprise ? offre.entreprise.display : 'Non défini' }}</td>
+                        <td>
+                            {% for creneau in occupation if creneau.entreprise.id == offre.entreprise.id %}
+                             {{ creneau.heure }}
+                               {% else %}
+                            <button data-toggle="modal" data-target="#modalRdv" data-offre="{{ offre.id }}"
+                                    class="btn btn-primary modalRdv">Prendre
+                                RDV</button></td>
+                        {% endfor %}
                         <td>{% for diplome in offre.diplomes %}{{ diplome.sigle }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
                         <td>
                             <a href="{{ path('etudiant_offre_show', {'offre': offre.id}) }}" class="btn btn-info"
@@ -73,5 +94,28 @@
             </table>
         </div>
     </div>
+
+    <div id="ajax-url" data-url="{{ path('etudiant_ajax_rdv') }}"></div>
+
+
+    <div class="modal" tabindex="-1" role="dialog" id="modalRdv">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Réserver un créneau pour le JobDating</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"  id="zoneModal">Créneaux en cours de chargement...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary" id="btnSave" data-dismiss="modal">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
 
