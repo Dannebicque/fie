@@ -31,7 +31,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for offre in offres %}
+                {% for offre in offres if offre.entreprise.jobdating == true %}
                     <tr>
                         <td>{{ offre.id }}</td>
                         <td>{{ offre.titre }}</td>

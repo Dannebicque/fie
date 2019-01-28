@@ -182,45 +182,8 @@ class EntrepriseController extends AbstractController
         return $this->render('entreprise/planning.html.twig', [
             'entreprise' => $entreprise,
             'creneaux'   => Creneaux::TAB_CRENEAUX,
-            'occupation' => $creneauxRepository->findByEntreprise($entreprise)
+            'occupation' => $creneauxRepository->findByEntreprise($this->getUser()->getEntreprise())
             ]);
-    }
-
-    /**
-     * @Route("/ajax/indisponible", name="ajax_entreprise_indisponible", methods="POST")
-     */
-    public function ajaxIndisponible(
-        EntrepriseRepository $entrepriseRepository,
-        CreneauxRepository $creneauxRepository,
-        EntityManagerInterface $entityManager,
-        Request $request) {
-        $entreprise = $entrepriseRepository->find($request->request->get('entreprise'));
-        $cr = $creneauxRepository->findBy(['heure' => $request->request->get('cr'), 'entreprise' => $entreprise->getId()]);
-
-        if ($request->request->get('value') == 'true') {
-            $value = true;
-        } else {
-            $value=false;
-        }
-
-
-        if ($entreprise) {
-            if (count($cr) === 1) {
-                $cr[0]->setIndisponible($value);
-                $entityManager->persist($cr[0]);
-                $entityManager->flush();
-            } else if (count($cr) === 0) {
-                $cr = new Creneaux();
-                $cr->setEntreprise($entreprise);
-                $cr->setHeure($request->request->get('cr'));
-                $cr->setIndisponible($value);
-                $entityManager->persist($cr);
-                $entityManager->flush();
-            }
-
-            return new Response(Response::HTTP_OK);
-        }
-        return new Response(Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**
