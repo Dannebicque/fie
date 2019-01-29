@@ -1,0 +1,77 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Etudiant{% endblock %}
+
+{% block body %}
+    <a href="{{ path('diplome_index') }}">Retourner à la liste</a>
+<br>
+
+    <h1>Détails d'un étudiant et de ses rendez-vous</h1>
+    <h2>Informations</h2>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ etudiant.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prénom</th>
+                <td>{{ etudiant.prenom }}</td>
+            </tr>
+            <tr>
+                <th>N° Etudiant</th>
+                <td>{{ etudiant.numetudiant }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ etudiant.email }}</td>
+            </tr>
+            <tr>
+                <th>Diploôme</th>
+                <td>{{ etudiant.diplome.libelle }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Rendez-vous</h2>
+
+            <table class="table">
+                <tr>
+                    <th>Heure</th>
+                    <th>Entreprise</th>
+                    <th>Stand</th>
+                    <th>Salle</th>
+                    <th>Action</th>
+                </tr>
+                {% for cr in creneaux %}
+                    <tr>
+                        <td>{{ cr }}</td>
+                        <td>{% if occupation[cr] is defined and occupation[cr].entreprise is defined %}{{ occupation[cr]
+                            .entreprise
+                            .societe }}{% endif %}</td>
+                        <td>{% if occupation[cr] is defined and occupation[cr].entreprise is defined %}{{ occupation[cr]
+                            .entreprise
+                            .numeroStand }}{% endif %}</td>
+                        <td>{% if occupation[cr] is defined and occupation[cr].entreprise is defined %}{{ occupation[cr]
+                            .entreprise
+                            .salle }}{% endif %}</td>
+                        <td>
+                            {% if occupation[cr] is defined %}
+                                <form method="post" action="{{ path('admEtudiant_delete_creneau', {etudiant: etudiant.id, creneau:
+                                    occupation[cr].id}) }}" onsubmit="return confirm
+('Confirmez-vous la suppression de cet élément ?');" style="display: inline-block">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button class="btn btn-danger" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
+                                </form>
+                            {% else %}
+                                -
+                                {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+
+    <a href="{{ path('diplome_index') }}">Retourner à la liste</a>
+
+{% endblock %}

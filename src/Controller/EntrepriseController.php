@@ -7,10 +7,13 @@ use App\Entity\Entreprise;
 use App\Form\EntrepriseType;
 use App\Repository\CreneauxRepository;
 use App\Repository\EntrepriseRepository;
+use App\Repository\OffreRepository;
+use App\Repository\RepresentantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
@@ -217,12 +220,32 @@ class EntrepriseController extends AbstractController
      *
      * @return Response
      */
-    public function delete(Request $request, Entreprise $entreprise): Response
+    public function delete(FlashBagInterface $flashBag, RepresentantRepository $representantRepository, OffreRepository $offreRepository, CreneauxRepository $creneauxRepository, Request $request, Entreprise $entreprise): Response
     {
         if ($this->isCsrfTokenValid('delete' . $entreprise->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
+
+            //supprimer les créneaux
+            $crs = $creneauxRepository->findBy(['entreprise' => $entreprise->getId()]);
+            foreach ($crs as $cr) {
+                $em->remove($cr);
+            }
+
+            //supprimer les offres
+            $offres = $offreRepository->findBy(['entreprise' => $entreprise->getId()]);
+            foreach ($offres as $offre) {
+                $em->remove($offre);
+            }
+
+            //supprimer les representants
+            $representants = $representantRepository->findBy(['entreprise' => $entreprise->getId()]);
+            foreach ($representants as $representant) {
+                $em->remove($representant);
+            }
             $em->remove($entreprise);
             $em->flush();
+            $flashBag->add('success', 'Entreprise supprimée');
+
         }
 
         return $this->redirectToRoute('entreprise_index');
