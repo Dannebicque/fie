@@ -63,4 +63,4 @@ security:
     - { path: '^/connexion', roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: '^/professionnel/gestion', roles: ROLE_ENTREPRISE }
     - { path: '^/etudiant/gestion', roles: ROLE_ETUDIANT }
-    #- { path: '^/administration', roles: ROLE_ADMINISTRATEUR }
+    - { path: '^/administration', roles: ROLE_ADMINISTRATEUR }
