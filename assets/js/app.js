@@ -17,6 +17,7 @@ require('./jquery.collection')
 require('datatables.net-bs4' );
 
 $('#datatable_entreprise').DataTable({});
+$('#datatable_etudiant').DataTable({});
 
 $('.selector-representant').collection({
   init_with_n_elements: 1,
