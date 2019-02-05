@@ -204,7 +204,7 @@ class EntrepriseController extends AbstractController
 
         foreach($entreprises as $entreprise) {
             $sheet = $spreadsheet->createSheet();
-            $sheet->setTitle($entreprise->getSociete());
+            $sheet->setTitle(substr($entreprise->getSociete(),0,20));
 
             $sheet->setCellValue('A1', 'Heure');
             $sheet->setCellValue('B1', 'Etudiant');
