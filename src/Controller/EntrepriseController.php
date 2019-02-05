@@ -206,12 +206,14 @@ class EntrepriseController extends AbstractController
             $sheet = $spreadsheet->createSheet();
             $sheet->setTitle(substr($entreprise->getSociete(),0,20));
 
-            $sheet->setCellValue('A1', 'Heure');
-            $sheet->setCellValue('B1', 'Etudiant');
-            $sheet->setCellValue('C1', 'Formation(s)');
+            $sheet->setCellValue('A1', $entreprise->getSociete());
+
+            $sheet->setCellValue('A2', 'Heure');
+            $sheet->setCellValue('B2', 'Etudiant');
+            $sheet->setCellValue('C2', 'Formation');
 
             $occupation = $creneauxRepository->findByEntreprise($entreprise);
-            $row = 2;
+            $row = 3;
             foreach (Creneaux::TAB_CRENEAUX as $cr) {
 
                 $sheet->setCellValueByColumnAndRow(1, $row, $cr);
@@ -224,7 +226,6 @@ class EntrepriseController extends AbstractController
                         $sheet->setCellValueByColumnAndRow(3, $row,$occupation[$cr]->getEtudiant()->getDiplome()->getLibelle());
                     }
                 }
-                $sheet->setCellValueByColumnAndRow(3, $row, $entreprise->getCp());
                 $row++;
             }
 
