@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Liste des entreprises présentes</h1>
     <a href="{{ path('entreprise_export') }}" class="btn btn-success"><i class="fa fa-save"></i> Exporter liste des entreprises</a><br>
+    <a href="{{ path('entreprise_planning_export_all') }}" class="btn btn-success"><i class="fa fa-save"></i>
+        Exporter les plannings au format Excel</a><br>
     <a href="{{ path('entreprise_stand') }}">Attribuer le numéro de stand</a><br>
     <table class="table" id="datatable_entreprise">
         <thead>

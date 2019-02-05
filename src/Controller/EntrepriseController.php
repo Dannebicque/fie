@@ -189,6 +189,59 @@ class EntrepriseController extends AbstractController
             ]);
     }
 
+
+    /**
+     * @Route("/export/planning", name="entreprise_planning_export_all", methods="GET")
+     * @param CreneauxRepository $creneauxRepository
+     *
+     * @return Response
+     */
+    public function exportAllExcel(CreneauxRepository $creneauxRepository, EntrepriseRepository $entrepriseRepository): Response
+    {
+        $entreprises = $entrepriseRepository->findBy(['jobdating' => true]);
+
+        $spreadsheet = new Spreadsheet();
+
+        foreach($entreprises as $entreprise) {
+            $sheet = $spreadsheet->createSheet($entreprise->getSociete());
+
+            $sheet->setCellValue('A1', 'Heure');
+            $sheet->setCellValue('B1', 'Etudiant');
+            $sheet->setCellValue('C1', 'Formation(s)');
+
+            $occupation = $creneauxRepository->findByEntreprise($entreprise);
+            $row = 2;
+            foreach (Creneaux::TAB_CRENEAUX as $cr) {
+
+                $sheet->setCellValueByColumnAndRow(1, $row, $cr);
+                if (array_key_exists($cr, $occupation) && $occupation[$cr]->getIndisponible() === true) {
+                    $sheet->setCellValueByColumnAndRow(2, $row,'Indisponible');
+                    $sheet->setCellValueByColumnAndRow(3, $row,'Indisponible');
+                } else {
+                    if (array_key_exists($cr, $occupation) && $occupation[$cr]->getEtudiant() !== null) {
+                        $sheet->setCellValueByColumnAndRow(2, $row,$occupation[$cr]->getEtudiant()->getDisplay());
+                        $sheet->setCellValueByColumnAndRow(3, $row,$occupation[$cr]->getEtudiant()->getDiplome()->getLibelle());
+                    }
+                }
+                $sheet->setCellValueByColumnAndRow(3, $row, $entreprise->getCp());
+                $row++;
+            }
+
+        }
+        // Create your Office 2007 Excel (XLSX Format)
+        $writer = new Xlsx($spreadsheet);
+        $datejour = new \DateTime('now');
+        // Create a Temporary file in the system
+        $fileName = 'planning_entreprise-' . $datejour->format('d-m-Y-H-i') . '.xlsx';
+        $temp_file = tempnam(sys_get_temp_dir(), $fileName);
+
+        // Create the excel file in the tmp directory of the system
+        $writer->save($temp_file);
+
+        // Return the excel file as an attachment
+        return $this->file($temp_file, $fileName, ResponseHeaderBag::DISPOSITION_INLINE);
+    }
+
     /**
      * @Route("/ajax/indisponible", name="ajax_entreprise_indisponible", methods="POST")
      */
