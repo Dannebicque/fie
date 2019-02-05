@@ -203,7 +203,8 @@ class EntrepriseController extends AbstractController
         $spreadsheet = new Spreadsheet();
 
         foreach($entreprises as $entreprise) {
-            $sheet = $spreadsheet->createSheet($entreprise->getSociete());
+            $sheet = $spreadsheet->createSheet();
+            $sheet->setTitle($entreprise->getSociete());
 
             $sheet->setCellValue('A1', 'Heure');
             $sheet->setCellValue('B1', 'Etudiant');
