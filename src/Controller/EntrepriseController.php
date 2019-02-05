@@ -220,7 +220,7 @@ class EntrepriseController extends AbstractController
                     $sheet->setCellValueByColumnAndRow(3, $row,'Indisponible');
                 } else {
                     if (array_key_exists($cr, $occupation) && $occupation[$cr]->getEtudiant() !== null) {
-                        $sheet->setCellValueByColumnAndRow(2, $row,$occupation[$cr]->getEtudiant()->getDisplay());
+                        $sheet->setCellValueByColumnAndRow(2, $row,$occupation[$cr]->getEtudiant()->display());
                         $sheet->setCellValueByColumnAndRow(3, $row,$occupation[$cr]->getEtudiant()->getDiplome()->getLibelle());
                     }
                 }
