@@ -58,10 +58,11 @@ class RepresentantController extends AbstractController
             $sheet->setCellValueByColumnAndRow(3, $row, $representant->getPrenom());
             $sheet->setCellValueByColumnAndRow(4, $row, $representant->getEmail());
             $sheet->setCellValueByColumnAndRow(5, $row, $representant->getTelephone());
-            $sheet->setCellValueByColumnAndRow(6, $row, $representant->getEntreprise()->getNumerostand());
-            $sheet->setCellValueByColumnAndRow(7, $row, $representant->getEntreprise()->getSalle());
-            if ($representant->getEntreprise() !== null)
+            if ($representant->getEntreprise() !== null) {
                 $sheet->setCellValueByColumnAndRow(6, $row, $representant->getEntreprise()->getSociete());
+                $sheet->setCellValueByColumnAndRow(7, $row, $representant->getEntreprise()->getNumerostand());
+                $sheet->setCellValueByColumnAndRow(8, $row, $representant->getEntreprise()->getSalle());
+            }
 
             $row++;
         }
